@@ -1,0 +1,50 @@
+.home-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+}
+
+.background-image {
+    width: 75%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.content-container {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 2rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.text-container {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.typewriter {
+    font-family: monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.get-started-button {
+    text-decoration: none;
+    background-color: #242657;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 1.1rem; /* large value to make it round */
+    align-self: flex-start;
+    margin-left: 5.7rem;
+}
