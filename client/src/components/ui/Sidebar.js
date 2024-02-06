@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import { useState } from 'react';
 
 
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
@@ -10,28 +11,46 @@ import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNone
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import PowerSettingsNewOutlinedIcon from '@mui/icons-material/PowerSettingsNewOutlined';
+import WelcomeMessage from './WelcomeMessage';
 
-import "../../assets/styles/sidebar.css";
+import { BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
+import ChatTest from './ChatTest';
 
-const Bar = () => {
+
+
+
+const Bar = ({ setSelectedComponent }) => {
+
     return (
-      <div style={{ display: "flex", height: "100vh" }}>
-        <Sidebar className="app">
+      <div>
+       <Sidebar style={{ display: "flex", height: "100vh" }} className="app">
           <Menu>
             <MenuItem className="menu1">
               <h2>Hi User</h2>
             </MenuItem>
-            <MenuItem icon={<GridViewOutlinedIcon />}> HOME </MenuItem>
-            <MenuItem icon={<ChatBubbleOutlineOutlinedIcon />}> CHAT </MenuItem>
-            <MenuItem icon={<PersonOutlinedIcon />}> CONTACT </MenuItem>
-            <MenuItem icon={<NotificationsNoneOutlinedIcon />}> NOTIFICATION </MenuItem>
+            <MenuItem onClick={() => setSelectedComponent('welcomeMessage')} icon={<ChatBubbleOutlineOutlinedIcon />}>  HOME  </MenuItem>
+            <MenuItem onClick={() => setSelectedComponent('chat')} icon={<ChatBubbleOutlineOutlinedIcon />} > CHAT </MenuItem>
+            <MenuItem onClick={() => setSelectedComponent('contacts')} icon={<PersonOutlinedIcon />}> CONTACT </MenuItem>
+            <MenuItem onClick={() => setSelectedComponent('notifications')} icon={<NotificationsNoneOutlinedIcon />}> NOTIFICATION </MenuItem>
             <MenuItem icon={<CalendarMonthOutlinedIcon />}> CALENDAR </MenuItem>
             <MenuItem icon={<SettingsOutlinedIcon />}> SETTINGS </MenuItem>
             <MenuItem icon={<PowerSettingsNewOutlinedIcon />}> LOGOUT </MenuItem>
           </Menu>
         </Sidebar>
-        <h1>More Content Coming</h1>
+        <div>
+          <Routes >
+            
+            <Route path="chattest" element={<ChatTest />} />
+
+          </Routes>
+          
+        </div>
+      
+
       </div>
+      
+ 
+      
     );
   };
   export default Bar;
