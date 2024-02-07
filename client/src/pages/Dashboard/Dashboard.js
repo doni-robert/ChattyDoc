@@ -1,28 +1,30 @@
 import React from 'react'
 import SideBar from '../../components/ui/Sidebar'
-import WelcomeMessage from '../../components/ui/WelcomeMessage'
-import ChatTest from '../../components/ui/ChatTest';
+import HomeDashboard from '../../components/ui/HomeDashboard'
+import Chat from '../../components/ui/Chat';
 import { useState } from 'react';
 import Notifications from '../../components/ui/Notifications'
 import Contacts from '../../components/ui/Contacts'
+import "../../assets/styles/dashboard.css";
 
 
 const Dashboard = () => {
   //State for selecting component to display beside the SideBar
   // Default set to 'dashboardHome'
-  const [selectedComponent, setSelectedComponent] = useState('welcomeMessage');
+  const [selectedComponent, setSelectedComponent] = useState('homeDashboard');
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div className='dashboard-container'>
 
-      <SideBar setSelectedComponent={setSelectedComponent}/>
+      <SideBar setSelectedComponent={setSelectedComponent}
+              />
 
       {/* Conditional rendering to render the selectedComponent.
           Currently renders dummy components */}
-      {selectedComponent === 'chat' && <ChatTest />}
+      {selectedComponent === 'chat' && <Chat />}
       {selectedComponent === 'contacts' && <Contacts />}
       {selectedComponent === 'notifications' && <Notifications />}
-      {selectedComponent === 'welcomeMessage' && <WelcomeMessage />}  
+      {selectedComponent === 'homeDashboard' && <HomeDashboard />}  
      
     </div>
   )

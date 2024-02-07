@@ -12,11 +12,11 @@ import PowerSettingsNewOutlinedIcon from '@mui/icons-material/PowerSettingsNewOu
 const SideBar = ({ setSelectedComponent }) => {
 
     return (
-      <div>
-       <Sidebar style={{ display: "flex", height: "100vh" }} className="app">
+      <div className='sidebar-container'>
+       <Sidebar className="sidebar">
           <Menu>
             <MenuItem className="menu1"><h2> Hi User </h2></MenuItem>
-            <MenuItem onClick={() => setSelectedComponent('welcomeMessage')} icon={<GridViewOutlinedIcon />}>  HOME  </MenuItem>
+            <MenuItem onClick={() => setSelectedComponent('homeDashboard')} icon={<GridViewOutlinedIcon />}> HOME </MenuItem>
             <MenuItem onClick={() => setSelectedComponent('chat')} icon={<ChatBubbleOutlineOutlinedIcon />} > CHAT </MenuItem>
             <MenuItem onClick={() => setSelectedComponent('contacts')} icon={<PersonOutlinedIcon />}> CONTACT </MenuItem>
             <MenuItem onClick={() => setSelectedComponent('notifications')} icon={<NotificationsNoneOutlinedIcon />}> NOTIFICATION </MenuItem>
