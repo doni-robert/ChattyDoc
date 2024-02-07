@@ -4,7 +4,9 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Features from "./pages/Features/Features";
 import Navbar from './components/ui/Navbar';
+import Dashboard from './pages/Dashboard/Dashboard';
 import "./assets/styles/App.css";
+
 
 function App(){
   return (
@@ -12,9 +14,10 @@ function App(){
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/features" element={<Features />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="features" element={<Features />} />
+        <Route path="dashboard" element={<Dashboard />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
