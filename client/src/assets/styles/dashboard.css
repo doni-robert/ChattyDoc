@@ -1,8 +1,5 @@
 .dashboard-container {
     display: flex;
-}
-
-.selected {
-    background-color: #b01717; /* Change to desired color */
-    color: #000; /* Change to desired color */
+    height: 100vh;
+    font-size: 12px;
 }
