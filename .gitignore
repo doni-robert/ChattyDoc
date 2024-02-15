@@ -133,5 +133,5 @@ dist
 server/env/
 
 # Ignore __pycache__ directories
-*__pycache__/
 *.pyc
+__pycache__/
