@@ -129,5 +129,8 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-#environment
-env/
+# Ignore .env directory inside the server directory
+/server/.env
+
+# Ignore __pycache__ directories
+__pycache__/
