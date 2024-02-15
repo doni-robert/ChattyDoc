@@ -47,6 +47,10 @@ const LoginPage = () => {
             console.log('Login Response:', response);
 
             if (response.status === 200) {
+                // Save token to local storage
+                const token = response.data.access_token
+                localStorage.setItem('jwtToken', token)
+                
                 // Login successful, redirect to the dashboard
                 navigate('/dashboard');
             } else {
