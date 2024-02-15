@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
@@ -9,8 +9,8 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import PowerSettingsNewOutlinedIcon from '@mui/icons-material/PowerSettingsNewOutlined';
 import "../../assets/styles/sidebar.css";
 
-const SideBar = ({ setSelectedComponent }) => {
-    // State for tracing the selected menu
+const SideBar = ({ setSelectedComponent, username }) => {
+    // State for tracking the selected menu
     const [selectedMenuItem, setSelectedMenuItem] = useState('');
 
     const handleMenuItemClick = (component) => {
@@ -23,7 +23,7 @@ const SideBar = ({ setSelectedComponent }) => {
        <Sidebar className="sidebar">
           <Menu>
               <MenuItem className="user-profile">
-                <h2> Hi User </h2>
+                <h2> Hi {username} </h2>
               </MenuItem>
               <MenuItem 
                 onClick={() => handleMenuItemClick('homeDashboard')} 
