@@ -8,7 +8,7 @@ import axios from 'axios';
 import '../../assets/styles/login.css';
 
 
-const LoginPage = () => {
+const LoginPage = ({setIsLoggedIn}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
@@ -50,6 +50,7 @@ const LoginPage = () => {
                 // Save token to local storage
                 const token = response.data.access_token
                 localStorage.setItem('jwtToken', token)
+                setIsLoggedIn(true)
                 
                 // Login successful, redirect to the dashboard
                 navigate('/dashboard');
