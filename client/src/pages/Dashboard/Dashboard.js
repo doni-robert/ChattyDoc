@@ -12,11 +12,11 @@ const Dashboard = () => {
   // Default set to 'dashboardHome'
   const [selectedComponent, setSelectedComponent] = useState('homeDashboard');
 
-  // State for the username
-  const [username, setUsername] =  useState('')
+  // State for the firstName
+  const [firstName, setFirstName] =  useState('')
 
   useEffect(() => {
-    const fetchUsername = async () => {
+    const fetchFirstName = async () => {
       try {
         // Get JWT token from localStorage
         const token = localStorage.getItem('jwtToken');
@@ -26,7 +26,7 @@ const Dashboard = () => {
         }
         console.log(token)
 
-        // Fetch username with JWT token
+        // Fetch firstName with JWT token
         const response = await fetch('http://localhost:5000/user/get_name', {
           method: 'GET',
           headers: {
@@ -35,17 +35,17 @@ const Dashboard = () => {
         });
 
         if (!response.ok) {
-          throw new Error('Failed to fetch username');
+          throw new Error('Failed to fetch first name');
         }
 
         const data = await response.json();
-        setUsername(data.username.charAt(0).toUpperCase() + data.username.slice(1));
+        setFirstName(data.firstname.charAt(0).toUpperCase() + data.firstname.slice(1));
       } catch (error) {
-        console.error('Error fetching username:', error);
+        console.error('Error fetching firstName:', error);
       }
     };
 
-    fetchUsername();
+    fetchFirstName();
   }, []);
 
   return (
@@ -53,7 +53,7 @@ const Dashboard = () => {
 
       <SideBar
         setSelectedComponent={setSelectedComponent}
-        username={username}
+        firstName={firstName}
       />
 
       {/* Conditional rendering to render the selectedComponent.
@@ -61,7 +61,7 @@ const Dashboard = () => {
       {selectedComponent === 'chat' && <Chat />}
       {selectedComponent === 'contacts' && <Contacts />}
       {selectedComponent === 'notifications' && <Notifications />}
-      {selectedComponent === 'homeDashboard' && <HomeDashboard username={username} />}  
+      {selectedComponent === 'homeDashboard' && <HomeDashboard firstName={firstName} />}  
      
     </div>
   )

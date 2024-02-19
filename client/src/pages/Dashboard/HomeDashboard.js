@@ -6,10 +6,10 @@ import doctor1 from "../../assets/images/doctor 1.png";
 import nurse1 from "../../assets/images/nurse 1.png";
 import healthy1 from "../../assets/images/healthy 1.png";
 
-const HomeDashboard = ({username}) => {
+const HomeDashboard = ({firstName}) => {
   return (
     <div className="home-dashboard-container">
-        <WelcomeMessage username={username}/>
+        <WelcomeMessage firstName={firstName}/>
         <div className="home-dashboard-images">
             <figure>
                 <img src={doctor1} alt="" />

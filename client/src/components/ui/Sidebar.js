@@ -9,7 +9,7 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import PowerSettingsNewOutlinedIcon from '@mui/icons-material/PowerSettingsNewOutlined';
 import "../../assets/styles/sidebar.css";
 
-const SideBar = ({ setSelectedComponent, username }) => {
+const SideBar = ({ setSelectedComponent, firstName }) => {
     // State for tracking the selected menu
     const [selectedMenuItem, setSelectedMenuItem] = useState('');
 
@@ -23,7 +23,7 @@ const SideBar = ({ setSelectedComponent, username }) => {
        <Sidebar className="sidebar">
           <Menu>
               <MenuItem className="user-profile">
-                <h2> Hi {username} </h2>
+                <h2> Hi {firstName} </h2>
               </MenuItem>
               <MenuItem 
                 onClick={() => handleMenuItemClick('homeDashboard')} 

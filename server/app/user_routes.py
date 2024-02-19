@@ -43,7 +43,7 @@ def logged_in(func):
 @logged_in
 def get_name(current_user):
     """ Gets the name of the current user """
-    username = User.objects(email=current_user).first().username
+    firstname = User.objects(email=current_user).first().firstname
     return make_response(
-        jsonify({"username": username}),
+        jsonify({"firstname": firstname}),
         201)

@@ -21,13 +21,14 @@ def register():
     """ Registers a new user """
     data = request.get_json()
 
-    username = data.get("username")
+    firstname = data.get("firstname")
+    lastname = data.get("lastname")
     email = data.get("email")
     password = data.get("password")
 
-    if not username or not email or not password:
+    if not firstname or not lastname or not email or not password:
         return make_response(
-            jsonify({"message": "Missing username, email or password"}),
+            jsonify({"message": "Missing firstname, lastname, email or password"}),
             400)
     password = generate_password_hash(password)
 
@@ -35,7 +36,7 @@ def register():
         return make_response(jsonify(
             {"message": f"User with email {email} already exists"}), 400)
 
-    new_user = User.create_user(email, username, password)
+    new_user = User.create_user(email, firstname, lastname, password)
     return make_response(
             jsonify({"message": "User created successfully"}),
             201)
@@ -62,7 +63,7 @@ def login():
 
     else:
         return make_response(
-            jsonify({"message": "Invalid username or password"}), 400)
+            jsonify({"message": "Invalid firstname or password"}), 400)
 
 
 @bp.route('/logout', methods=['GET'])
