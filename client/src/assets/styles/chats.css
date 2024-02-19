@@ -131,6 +131,13 @@ button {
     font-weight: 100;
 }
 
+.chat-list {
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    height: 100%;
+}
+
 .pinned-chats {
     display: flex;
     flex-direction: column;
@@ -139,7 +146,8 @@ button {
 .pinned-chats p {
     font-size: medium;
     font-weight: 500;
-    color: #676767
+    color: #676767;
+    margin-bottom: 1px;
 }
 
 .all-chats {
@@ -150,5 +158,6 @@ button {
 .all-chats p {
     font-size: medium;
     font-weight: 500;
-    color: #676767
+    color: #676767;
+    margin-bottom: 1px;
 }
