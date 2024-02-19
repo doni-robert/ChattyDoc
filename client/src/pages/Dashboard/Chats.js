@@ -60,8 +60,8 @@ const ChatElement = ({ id, img, name, msg, time, unread, online }) => {
         </div>
       </div>
       <div className="time-info">
-        <Badge badgeContent={unread} color="primary" />
-        <p>{time}</p>
+        <div><Badge badgeContent={unread} color="primary" /></div>
+        <span>{time}</span>
       </div>
     </div>
   );
@@ -89,17 +89,19 @@ const Chats = () => {
       <Divider />
 
       {/* Chats section */}
-      <div className="pinned-chats">
-        <p>Pinned</p>
-        {ChatList.filter((el) => el.pinned).map((el) => {
-          return <ChatElement {...el} />;
-        })}
-      </div>
-      <div className="all-chats">
-        <p>All Chats</p>
-        {ChatList.filter((el) => !el.pinned).map((el) => {
-          return <ChatElement {...el} />;
-        })}
+      <div className="chat-list">
+        <div className="pinned-chats">
+          <p>Pinned</p>
+          {ChatList.filter((el) => el.pinned).map((el) => {
+            return <ChatElement {...el} />;
+          })}
+        </div>
+        <div className="all-chats">
+          <p>All Chats</p>
+          {ChatList.filter((el) => !el.pinned).map((el) => {
+            return <ChatElement {...el} />;
+          })}
+        </div>
       </div>
     </div>
   );
