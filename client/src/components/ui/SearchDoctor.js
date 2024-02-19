@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import data from '../../assets/MOCK_DATA.json'
+import data from '../../data/MOCK_DATA.json'
 
 const SearchDoctor = () => {
   // State for the term being searched
