@@ -6,16 +6,16 @@
 }
 
 h1 {
-    color: #165a72;
+    color: #242657;
     margin: 50px auto;
     font-size: 40px;
 }
 
 h2 {
-    color: #165a72;
+    color: #242657;
 }
 
 .selected {
-    background-color: #242657e6;
-    color: #000000; 
+    background-color: #242657;
+    color: #FFFFFF;
 }
