@@ -1,7 +1,12 @@
+.general-app {
+    display: flex;
+    flex-direction: row;
+}
+
 .chat-container {
     position: relative;
     height: 100vh;
-    width: 20%;
+    width: 320px;
     background-color: #fff;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
     padding-left: 10px;
@@ -134,8 +139,8 @@ button {
 .chat-list {
     display: flex;
     flex-direction: column;
-    overflow: scroll;
-    height: 100%;
+    overflow: auto;
+    max-height: 100%;
 }
 
 .pinned-chats {
@@ -160,4 +165,9 @@ button {
     font-weight: 500;
     color: #676767;
     margin-bottom: 1px;
+}
+
+.conversations {
+    display: flex;
+    flex-direction: column;
 }
