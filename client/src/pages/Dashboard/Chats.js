@@ -3,8 +3,9 @@ import { Divider, Avatar, Badge } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { faker } from "@faker-js/faker";
-import "../../assets/styles/chats.css";
+import Conversation from "../../components/ui/Conversation";
 import { ChatList } from "../../data/fake_data";
+import "../../assets/styles/chats.css";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -60,7 +61,9 @@ const ChatElement = ({ id, img, name, msg, time, unread, online }) => {
         </div>
       </div>
       <div className="time-info">
-        <div><Badge badgeContent={unread} color="primary" /></div>
+        <div>
+          <Badge badgeContent={unread} color="primary" />
+        </div>
         <span>{time}</span>
       </div>
     </div>
@@ -69,39 +72,49 @@ const ChatElement = ({ id, img, name, msg, time, unread, online }) => {
 
 const Chats = () => {
   return (
-    <div className="chat-container">
-      <div className="chat-title">
-        <h3>Chats</h3>
-        <button>New Chat</button>
+    <div className="general-app">
+      <div className="chat-container">
+        {/* Message list header */}
+        <div className="chat-title">
+          <h3>Chats</h3>
+          <button>New Chat</button>
+        </div>
+
+        {/* Search bar */}
+        <div className="search-bar">
+          <div className="search-container">
+            <div className="search-icon">
+              <SearchIcon />
+            </div>
+            <div className="search-input">
+              <input type="text" placeholder="Search..." aria-label="Search" />
+            </div>
+          </div>
+        </div>
+
+        {/* Divide chat-container into 2 */}
+        <Divider />
+
+        {/* Chats section */}
+        <div className="chat-list">
+          <div className="pinned-chats">
+            <p>Pinned</p>
+            {ChatList.filter((el) => el.pinned).map((el) => {
+              return <ChatElement {...el} />;
+            })}
+          </div>
+          <div className="all-chats">
+            <p>All Chats</p>
+            {ChatList.filter((el) => !el.pinned).map((el) => {
+              return <ChatElement {...el} />;
+            })}
+          </div>
+        </div>
       </div>
 
-      {/* Search bar */}
-      <div className="search-bar">
-        <div className="search-container">
-          <div className="search-icon">
-            <SearchIcon />
-          </div>
-          <div className="search-input">
-            <input type="text" placeholder="Search..." aria-label="Search" />
-          </div>
-        </div>
-      </div>
-      <Divider />
-
-      {/* Chats section */}
-      <div className="chat-list">
-        <div className="pinned-chats">
-          <p>Pinned</p>
-          {ChatList.filter((el) => el.pinned).map((el) => {
-            return <ChatElement {...el} />;
-          })}
-        </div>
-        <div className="all-chats">
-          <p>All Chats</p>
-          {ChatList.filter((el) => !el.pinned).map((el) => {
-            return <ChatElement {...el} />;
-          })}
-        </div>
+      {/* Conversation Section */}
+      <div className="conversations">
+        <Conversation />
       </div>
     </div>
   );
