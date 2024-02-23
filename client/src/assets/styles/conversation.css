@@ -48,10 +48,15 @@
     color: black;
 }
 
-.messages {
+.messages-container {
     width: 100%;
+    padding: 2px;
     flex-grow: 1;
     background-color: #fff;
+}
+
+.message-list-container {
+    margin: 1px;
 }
 
 .chat-footer {
