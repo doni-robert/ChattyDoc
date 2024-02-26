@@ -8,8 +8,10 @@ import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import PowerSettingsNewOutlinedIcon from '@mui/icons-material/PowerSettingsNewOutlined';
 import "../../assets/styles/sidebar.css";
+import onlineDoctor from "../../assets/images/user_icon_001.jpg";
+import UserImage from './UserImage';
 
-const SideBar = ({ setSelectedComponent, firstName }) => {
+const SideBar = ({ setSelectedComponent, userImage }) => {
     // State for tracking the selected menu
     const [selectedMenuItem, setSelectedMenuItem] = useState('');
 
@@ -17,14 +19,23 @@ const SideBar = ({ setSelectedComponent, firstName }) => {
       setSelectedMenuItem(component);
       setSelectedComponent(component);
     };
+    
 
     return (
       <div className="sidebar-container">
        <Sidebar className="sidebar">
           <Menu>
-              <MenuItem className="user-profile">
-                <h2> Hi {firstName} </h2>
-              </MenuItem>
+              <div
+                onClick={() => handleMenuItemClick('profile')}
+                className="user-profile"
+              >
+                <img
+                  src={userImage}
+                  alt="online-doctor"
+                  className='online-doctor'
+                />
+                
+              </div>
               <MenuItem 
                 onClick={() => handleMenuItemClick('homeDashboard')} 
                 icon={<GridViewOutlinedIcon />}
@@ -40,11 +51,11 @@ const SideBar = ({ setSelectedComponent, firstName }) => {
                 CHAT 
               </MenuItem>
               <MenuItem 
-                onClick={() => handleMenuItemClick('contacts')} 
+                onClick={() => handleMenuItemClick('profile')} 
                 icon={<PersonOutlinedIcon />}
-                className={selectedMenuItem === 'contacts' ? 'selected' : ''}
+                className={selectedMenuItem === 'profile' ? 'selected' : ''}
               >
-                CONTACT 
+                PROFILE 
               </MenuItem>
               <MenuItem 
                 onClick={() => handleMenuItemClick('notifications')}
@@ -55,11 +66,6 @@ const SideBar = ({ setSelectedComponent, firstName }) => {
               </MenuItem>
               <MenuItem icon={<CalendarMonthOutlinedIcon />}> CALENDAR </MenuItem>
               <MenuItem icon={<SettingsOutlinedIcon />}> SETTINGS </MenuItem>
-              {/* Lazy coding. Couldn't come up with a better way to push LOGOUT to the bottom */}
-             
-              <MenuItem></MenuItem>
-              <MenuItem></MenuItem>
-              <MenuItem></MenuItem>
               <MenuItem icon={<PowerSettingsNewOutlinedIcon />}> LOGOUT </MenuItem>
             </Menu>
         </Sidebar>

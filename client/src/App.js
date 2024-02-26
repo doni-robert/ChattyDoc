@@ -16,18 +16,30 @@ function App(){
     <Router>
       <Navbar isLoggedIn={isLoggedIn}/>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route 
+          path="/"
+          element={<Home />}
+        />
         <Route
           path="/login"
           element={isLoggedIn ? <Navigate to="/" /> : <Login setIsLoggedIn={setIsLoggedIn} />}
         />
-        <Route path="register" element={<Register />} />
-        <Route path="features" element={<Features />} />
+        <Route 
+          path="register" 
+          element={<Register />} 
+        />
+        <Route 
+          path="features" 
+          element={<Features />} 
+        />
         <Route
           path="/dashboard"
           element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" />}
         />
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route 
+          path="*" 
+          element={<Navigate to="/" />} 
+        />
       </Routes>
     </Router>
   )

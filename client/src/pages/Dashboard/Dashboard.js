@@ -5,6 +5,8 @@ import Notifications from '../../components/ui/Notifications'
 import Contacts from '../../components/ui/Contacts'
 import "../../assets/styles/dashboard.css";
 import HomeDashboard from './HomeDashboard';
+import Profile from '../../components/ui/Profile';
+import onlineDoctor from "../../assets/images/user_icon_001.jpg";
 
 
 const Dashboard = () => {
@@ -12,11 +14,55 @@ const Dashboard = () => {
   // Default set to 'dashboardHome'
   const [selectedComponent, setSelectedComponent] = useState('homeDashboard');
 
-  // State for the firstName
-  const [firstName, setFirstName] =  useState('')
+  // State for the user info
+  const [userInfo, setUserInfo] = useState({
+    firstName: '',
+    lastName: '',
+    email: ''
+  });
+
+  const { firstName, lastName, email } = userInfo;
+
+  const [userImage, setUserImage] = useState(onlineDoctor);
 
   useEffect(() => {
-    const fetchFirstName = async () => {
+    const fetchUserInfo = async () => {
+      try {
+        // Get JWT token from localStorage
+        const token = localStorage.getItem('jwtToken');
+
+        if (!token) {
+          throw new Error('JWT token not found');
+        }
+
+        // Fetch user info with JWT token
+        const response = await fetch('http://localhost:5000/user/get_user_info', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(response)
+        if (!response.ok) {
+          throw new Error('Failed to fetch user info');
+        }
+
+        const data = await response.json();
+        console.log(data)
+        
+        setUserInfo(data)
+
+      } catch (error) {
+        console.error('Error fetching user info:', error);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
+
+
+  useEffect(() => {
+    const fetchImage = async () => {
       try {
         // Get JWT token from localStorage
         const token = localStorage.getItem('jwtToken');
@@ -26,8 +72,8 @@ const Dashboard = () => {
         }
         console.log(token)
 
-        // Fetch firstName with JWT token
-        const response = await fetch('http://localhost:5000/user/get_name', {
+        // Fetch image with JWT token
+        const response = await fetch('http://localhost:5000/user/get_image', {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,
@@ -35,29 +81,33 @@ const Dashboard = () => {
         });
 
         if (!response.ok) {
-          throw new Error('Failed to fetch first name');
+          throw new Error('Failed to fetch image');
         }
 
-        const data = await response.json();
-        setFirstName(data.firstname.charAt(0).toUpperCase() + data.firstname.slice(1));
+        const imageBlop = await response.blob();
+        const imageUrl = URL.createObjectURL(imageBlop)
+        setUserImage(imageUrl)
+        
       } catch (error) {
-        console.error('Error fetching firstName:', error);
+        console.error('Error fetching image:', error);
       }
     };
 
-    fetchFirstName();
+    fetchImage();
   }, []);
+
 
   return (
     <div className='dashboard-container'>
 
       <SideBar
         setSelectedComponent={setSelectedComponent}
-        firstName={firstName}
+        userImage={userImage}
       />
 
       {/* Conditional rendering to render the selectedComponent.
           Currently renders dummy components */}
+      {selectedComponent === 'profile' && <Profile userInfo={userInfo } setUserInfo={setUserInfo} userImage={userImage} setUserImage={setUserImage} />}
       {selectedComponent === 'chat' && <Chat />}
       {selectedComponent === 'contacts' && <Contacts />}
       {selectedComponent === 'notifications' && <Notifications />}

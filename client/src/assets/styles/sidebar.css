@@ -19,3 +19,8 @@ h2 {
     background-color: #242657e6;
     color: #000000; 
 }
+
+.user-profile{
+    position: relative;
+    left: 30px;
+}
