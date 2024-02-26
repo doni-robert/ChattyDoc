@@ -9,6 +9,8 @@ from models.chat_message import ChatMessage
 from models.chat_room import ChatRoom
 from models.user import User
 from models.revoked_token import RevokedToken
+from bson import Binary
+import base64
 
 user_bp = Blueprint('user_routes', __name__, url_prefix='/user')
 
@@ -39,11 +41,98 @@ def logged_in(func):
     return wrapper
 
 
-@user_bp.route('/get_name', methods=['GET'])
+@user_bp.route('/get_user_info', methods=['GET'])
 @logged_in
-def get_name(current_user):
-    """ Gets the name of the current user """
+def get_user_info(current_user):
+    """ Gets the information of the current user """
     firstname = User.objects(email=current_user).first().firstname
+    lastname = User.objects(email=current_user).first().lastname
+    email = current_user
+
+    user_info = {
+            "firstName": firstname,
+            "lastName": lastname,
+            "email": email
+            }
+    return make_response(jsonify(user_info), 201)
+
+
+@user_bp.route('/update_user_info', methods=['POST'])
+@logged_in
+def update_user_info(current_user):
+    """Update the information of the current user"""
+    print(request)
+    print(request.json)
+    print(request.form)
+    data = request.json
+    new_firstname = data.get('firstName')
+    new_lastname = data.get('lastName')
+
+    # Update the user information in the database
+    user = User.objects(email=current_user).first()
+    if user:
+        user.firstname = new_firstname
+        user.lastname = new_lastname
+        user.save()  # Save the changes
+        return make_response(jsonify({"message": "User information updated successfully"}), 200)
+    else:
+        return make_response(jsonify({"error": "User not found"}), 404)
+
+@user_bp.route('/get_image', methods=['GET'])
+@logged_in
+def get_image(current_user):
+    """ Gets the image of the current user """
+    user = User.objects(email=current_user).first()
+    if user and user.image:
+        response = make_response(user.image)
+        response.headers['Content-Type'] = 'image/*'
+
+        return response
+    return 'Image not found', 404
+
+# @user_bp.route('/update_user_info', methods=['POST'])
+# @logged_in
+# def update_user_info(current_user):
+#     """Update the information of the current user"""
+#     data = request.json
+#     new_firstname = data.get('firstName')
+#     new_lastname = data.get('lastName')
+
+#     # Update the user information in the database
+#     user = User.objects(email=current_user).first()
+#     if user:
+#         user.firstname = new_firstname
+#         user.lastname = new_lastname
+#         user.save()  # Save the changes
+#         return make_response(jsonify({"message": "User information updated successfully"}), 200)
+#     else:
+#         return make_response(jsonify({"error": "User not found"}), 404)
+
+@user_bp.route('/upload_image', methods=['POST'])
+@logged_in
+def upload_image(current_user):
+    """ Saves the image of the current user """
+    print(request.form )
+
+
+    if 'image' not in request.form:
+        print('no image')
+        return 'No image uploaded'
+    
+    image = request.form['image']
+    
+    image_data = image.split(',')[1]
+
+    # Decode the base64 encoded string to binary
+    binary_image_data = base64.b64decode(image_data)
+    
+
+    print("image updating")
+
+
+    user = User.objects(email=current_user).first()
+    user.image = binary_image_data
+    user.save()
     return make_response(
-        jsonify({"firstname": firstname}),
+        jsonify({"message": 'Upload successful'}),
         201)

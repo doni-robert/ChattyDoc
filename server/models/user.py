@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ The User module"""
-from mongoengine import Document, StringField, EmailField
+from mongoengine import Document, StringField, EmailField, BinaryField
 
 
 class User(Document):
@@ -11,6 +11,7 @@ class User(Document):
     firstname = StringField(max_length=50, required=True)
     lastname = StringField(max_length=50, required=True)
     password = StringField(max_length=255, required=True)
+    image = BinaryField()
 
     meta = {'allow_inheritance': True}
 
