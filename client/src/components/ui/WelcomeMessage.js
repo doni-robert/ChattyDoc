@@ -11,11 +11,11 @@ const WelcomeMessage = ({firstName}) => {
         <div className="welcome-message-container">
             <div className='welcome-message'>
                 <div className="welcome-message-text">
-                    <p> Hi {firstName} How are you feeling today?</p> 
-                    <p> Consult with a real doctor and much more on Chatty Doc</p>
+                    <p> Hello {firstName}. How are you feeling today?</p> 
+                    <p style={{ fontStyle: 'italic' }}> Consult with a real doctor and much more on Chatty Doc</p>
                 </div>
                 <div>
-                    <img src={onlineDoctor} alt="online-doctor" className='online-doctor' />
+                    <img src={onlineDoctor} alt="online doctor" className='online-doctor' />
                 </div>    
             </div>
             <div className='date'>

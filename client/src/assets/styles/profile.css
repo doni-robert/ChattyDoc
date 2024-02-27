@@ -1,32 +1,65 @@
 .profile-container {
     display: flex;
     justify-content: space-evenly;
-
 }
 
 .user-info-container {
-    width: 40vw;
+    width: 30vw;
     border: 2px solid #242657;
- 
+   
+    
+}
 
+.header-container {
+   position: relative;
+   left: 30px;   
+}
+
+.header-container > h2 {
+    color: #000;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
 }
 
 .update-info-container {
     border: 2px solid #242657;
     width: 40vw;
-
+    background-color: FAFBFF;
 }
 
 .user-details-container {
     display: flex;
     flex-direction: column;
+    
 }
 
 .user-details {
-    display: flex;
-    justify-content: space-around;
+    display: flex;    
 }
 
-.edit-info-button {
-    width: 10vw;
+.info-key {
+    position: relative;
+    left: 90px;
 }
+
+.info-value {
+    position: relative;
+    left: 200px;
+}
+
+.update-container {
+    margin: 50px 100px;
+    
+    
+}
+
+.text-input {
+    margin-left: 50px;
+}
+
+
+
+

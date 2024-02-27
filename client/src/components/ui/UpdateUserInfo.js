@@ -86,48 +86,6 @@ const UpdateUserInfo = ({ userInfo, setUserInfo, userImage, setUserImage }) => {
     }
   };
 
-  // useEffect(() => {
-  //   // Function to update user image
-  //   const updateUserImage = async () => {
-  //     try {
-  //       // Get JWT token from localStorage
-  //       const token = localStorage.getItem('jwtToken');
-
-  //       if (!token) {
-  //         throw new Error('JWT token not found');
-  //       }
-
-  //       // Create form data
-  //       // const formData = new FormData();
-  //       // formData.append('image', userImage);
-  //       // console.log('Is this woking?')
-
-  //       // Fetch user image with JWT token
-  //       const response = await fetch('http://localhost:5000/user/upload_image', {
-  //         method: 'POST',
-  //         body: userImage, // Send the image data as form data
-  //         headers: {
-  //           "Content-Type": "image/jpeg",
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-  //       console.log(userImage)
-
-  //       if (!response.ok) {
-  //         throw new Error('Failed to upload user image');
-  //       }
-  //     } catch (error) {
-  //       // Handle errors
-  //       console.error('Error uploading user image:', error);
-  //     }
-  //   };
-
-  //   // Call updateUserImage when userImage changes
-  //   // if (userImage) {
-  //   //   updateUserImage();
-  //   // }
-  //   updateUserImage();
-  // }, [userImage]);
 
   const handleImageUpload = async () => {
     
@@ -161,52 +119,16 @@ const UpdateUserInfo = ({ userInfo, setUserInfo, userImage, setUserImage }) => {
     }
   };
 
-  // useEffect(() => {
-  //   const updateUserImage = async () => {
-  //     try {
-  //       const formData = new FormData();
-  //       formData.append('image', userImage);
-
-  //       const token = localStorage.getItem('jwtToken');
-  //       if (!token) {
-  //         throw new Error('JWT token not found');
-  //       }
-  //       console.log(formData)
-
-  //       const response = await fetch('http://localhost:5000/user/upload_image', {
-  //         method: 'POST',
-  //         body: formData,
-  //         headers: {
-  //           enctype:"multipart/form-data",
-  //           'Content-Type': 'multipart/form-data',
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-
-  //       console.log('response body', response.body)
-        
-
-  //       if (!response.ok) {
-  //         throw new Error('Failed to upload user image');
-  //       }
-        
-  //     } catch (error) {
-  //       console.error('Error uploading user image:', error);
-  //     }
-  //   };
-
-    
-  //   updateUserImage();
-    
-  // }, [userImage]);
-
+ 
 
 
   return (
-    <div>
+    <div className='update-container'>
       <form onSubmit={handleSubmit}>
+        <h3>Change names</h3>
         <label htmlFor="firstName">First Name:</label>
-        <input 
+        <input
+          className='text-input' 
           type="text" 
           id="firstName" 
           value={firstName} 
@@ -215,40 +137,19 @@ const UpdateUserInfo = ({ userInfo, setUserInfo, userImage, setUserImage }) => {
 
         <label htmlFor="lastName">Last Name:</label>
         <input 
+          className='text-input'
           type="text" 
           id="lastName" 
           value={lastName} 
           onChange={(e) => setLastName(e.target.value)} 
         /><br/><br/>
 
-        <label htmlFor="email">Profile Picture URL:</label>
-        <input 
-          type="text" 
-          id="email" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
-        /><br/><br/>
-
-        <label htmlFor="image">Profile Picture:</label>
-        {/* <form enctype="multipart/form-data" method='post'>
-        <input
-          name="image" 
-          type="file" 
-          enctype="multipart/form-data" 
-          accept="image/*" 
-          onChange={handleFileChange}
-        /><br/><br/>
-        <button onClick={handleImageUpload}>Upload</button>
-
-          
-
-        </form> */}
-        
-
         <button type="submit">Save Changes</button>
       </form>
+      <br/><br/>
 
     <div>
+      <h3>Change profile picture</h3>
       <input type="file" accept="image/*" onChange={handleFileChange} />
       <button onClick={handleImageUpload}>Upload</button>
     </div>

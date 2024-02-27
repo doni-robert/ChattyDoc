@@ -104,9 +104,7 @@ const Dashboard = () => {
         setSelectedComponent={setSelectedComponent}
         userImage={userImage}
       />
-
-      {/* Conditional rendering to render the selectedComponent.
-          Currently renders dummy components */}
+      {/* Conditional rendering to render the selectedComponent.*/}
       {selectedComponent === 'profile' && <Profile userInfo={userInfo } setUserInfo={setUserInfo} userImage={userImage} setUserImage={setUserImage} />}
       {selectedComponent === 'chat' && <Chat />}
       {selectedComponent === 'contacts' && <Contacts />}

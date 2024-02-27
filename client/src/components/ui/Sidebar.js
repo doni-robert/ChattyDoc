@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
-import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import PowerSettingsNewOutlinedIcon from '@mui/icons-material/PowerSettingsNewOutlined';
 import "../../assets/styles/sidebar.css";
-import onlineDoctor from "../../assets/images/user_icon_001.jpg";
-import UserImage from './UserImage';
+
 
 const SideBar = ({ setSelectedComponent, userImage }) => {
     // State for tracking the selected menu
@@ -31,8 +27,8 @@ const SideBar = ({ setSelectedComponent, userImage }) => {
               >
                 <img
                   src={userImage}
-                  alt="online-doctor"
-                  className='online-doctor'
+                  alt="profile pic"
+                  className='profile-pic'
                 />
                 
               </div>
@@ -57,15 +53,6 @@ const SideBar = ({ setSelectedComponent, userImage }) => {
               >
                 PROFILE 
               </MenuItem>
-              <MenuItem 
-                onClick={() => handleMenuItemClick('notifications')}
-                icon={<NotificationsNoneOutlinedIcon />}
-                className={selectedMenuItem === 'notification' ? 'selected' : ''}
-              >
-                NOTIFICATION 
-              </MenuItem>
-              <MenuItem icon={<CalendarMonthOutlinedIcon />}> CALENDAR </MenuItem>
-              <MenuItem icon={<SettingsOutlinedIcon />}> SETTINGS </MenuItem>
               <MenuItem icon={<PowerSettingsNewOutlinedIcon />}> LOGOUT </MenuItem>
             </Menu>
         </Sidebar>
