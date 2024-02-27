@@ -47,12 +47,14 @@ def get_user_info(current_user):
     """ Gets the information of the current user """
     firstname = User.objects(email=current_user).first().firstname
     lastname = User.objects(email=current_user).first().lastname
+    bio = User.objects(email=current_user).first().bio
     email = current_user
 
     user_info = {
             "firstName": firstname,
             "lastName": lastname,
-            "email": email
+            "email": email,
+            "bio": bio
             }
     return make_response(jsonify(user_info), 201)
 
@@ -67,12 +69,14 @@ def update_user_info(current_user):
     data = request.json
     new_firstname = data.get('firstName')
     new_lastname = data.get('lastName')
+    new_bio = data.get('bio')
 
     # Update the user information in the database
     user = User.objects(email=current_user).first()
     if user:
         user.firstname = new_firstname
         user.lastname = new_lastname
+        user.bio = new_bio
         user.save()  # Save the changes
         return make_response(jsonify({"message": "User information updated successfully"}), 200)
     else:

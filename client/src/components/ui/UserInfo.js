@@ -3,7 +3,7 @@ import UserImage from './UserImage';
 
 const UserInfo = ({userInfo, userImage}) => {
   return (
-    <div>
+    <div className='user-container'>
         <div className='header-container'>
             <h2>Profile</h2>
         </div>
@@ -17,11 +17,7 @@ const UserInfo = ({userInfo, userImage}) => {
 
         </div>
         <div className='user-details-container'>
-            <div className='user-details'>
-                <h4 className='info-key'>Email</h4>
-                <h4 className='info-value'>{userInfo.email}</h4>
-
-            </div>
+           
             <div className='user-details'>
                 <h4 className='info-key'>First Name</h4>
                 <h4 className='info-value'>{ userInfo.firstName }</h4>
@@ -30,6 +26,19 @@ const UserInfo = ({userInfo, userImage}) => {
             <div className='user-details'>
                 <h4 className='info-key'>Last Name</h4>
                 <h4 className='info-value'>{ userInfo.lastName }</h4>
+
+            </div>
+            <div className='user-details'>
+                <h4 className='info-key'>Email</h4>
+                <h4 className='info-value'>{userInfo.email}</h4>
+
+            </div>
+            <div className='bio-container'>
+                <h4 className='about-container'>About You</h4>
+                <div className='bio-details'>
+                <h4 className='bio-value'>{ userInfo.bio }</h4>
+                </div>
+                
 
             </div>
         </div>

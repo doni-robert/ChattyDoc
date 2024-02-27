@@ -12,6 +12,7 @@ class User(Document):
     lastname = StringField(max_length=50, required=True)
     password = StringField(max_length=255, required=True)
     image = BinaryField()
+    bio = StringField()
 
     meta = {'allow_inheritance': True}
 

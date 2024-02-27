@@ -18,10 +18,11 @@ const Dashboard = () => {
   const [userInfo, setUserInfo] = useState({
     firstName: '',
     lastName: '',
-    email: ''
+    email: '',
+    bio: ''
   });
 
-  const { firstName, lastName, email } = userInfo;
+  const { firstName, lastName, email, bio } = userInfo;
 
   const [userImage, setUserImage] = useState(onlineDoctor);
 
@@ -105,7 +106,11 @@ const Dashboard = () => {
         userImage={userImage}
       />
       {/* Conditional rendering to render the selectedComponent.*/}
-      {selectedComponent === 'profile' && <Profile userInfo={userInfo } setUserInfo={setUserInfo} userImage={userImage} setUserImage={setUserImage} />}
+      {selectedComponent === 'profile' && <Profile userInfo={userInfo } 
+                                                    setUserInfo={setUserInfo} 
+                                                    userImage={userImage} 
+                                                    setUserImage={setUserImage}
+                                                    />}
       {selectedComponent === 'chat' && <Chat />}
       {selectedComponent === 'contacts' && <Contacts />}
       {selectedComponent === 'notifications' && <Notifications />}

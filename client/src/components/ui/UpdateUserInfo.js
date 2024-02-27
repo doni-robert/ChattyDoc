@@ -5,18 +5,20 @@ const UpdateUserInfo = ({ userInfo, setUserInfo, userImage, setUserImage }) => {
   const [firstName, setFirstName] = useState(userInfo.firstName);
   const [lastName, setLastName] = useState(userInfo.lastName);
   const [email, setEmail] = useState(userInfo.email);
+  const [bio, setBio] = useState(userInfo.bio);
 
   // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     // Package the form data
-    const forData = {
+    const formData = {
       firstName: firstName,
       lastName: lastName,
-      email: email
+      email: email,
+      bio: bio
     };
     // Call onSave prop to save the changes
-    setUserInfo(forData);
+    setUserInfo(formData);
 
     
   };
@@ -123,9 +125,18 @@ const UpdateUserInfo = ({ userInfo, setUserInfo, userImage, setUserImage }) => {
 
 
   return (
-    <div className='update-container'>
+    <div className='user-container'>
+      <div className='header-container'>
+            <h2>Update Profile</h2>
+      </div>
+      <div>
+        <h3>Change profile picture</h3>
+        <input type="file" accept="image/*" onChange={handleFileChange} />
+        <button onClick={handleImageUpload}>Upload</button>
+      </div>
+
       <form onSubmit={handleSubmit}>
-        <h3>Change names</h3>
+        <h3>Change details</h3>
         <label htmlFor="firstName">First Name:</label>
         <input
           className='text-input' 
@@ -144,15 +155,24 @@ const UpdateUserInfo = ({ userInfo, setUserInfo, userImage, setUserImage }) => {
           onChange={(e) => setLastName(e.target.value)} 
         /><br/><br/>
 
+        <div className='bio-input-container'>
+          <label htmlFor="bio">About You:</label>
+          <textarea
+            
+            className='bio-input'
+            type="text" 
+            id="bio" 
+            value={bio} 
+            onChange={(e) => setBio(e.target.value)} 
+          /><br/><br/>
+        </div>
+        
+
         <button type="submit">Save Changes</button>
       </form>
       <br/><br/>
 
-    <div>
-      <h3>Change profile picture</h3>
-      <input type="file" accept="image/*" onChange={handleFileChange} />
-      <button onClick={handleImageUpload}>Upload</button>
-    </div>
+   
 
     </div>
   );
