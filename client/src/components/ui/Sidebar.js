@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
@@ -15,6 +15,16 @@ const SideBar = ({ setSelectedComponent, userImage }) => {
       setSelectedMenuItem(component);
       setSelectedComponent(component);
     };
+
+    const handleLogout = () =>{
+      // Clear token from local storage
+  
+      localStorage.removeItem('jwtToken'); 
+
+      // Reload page to navigate to login
+      window.location.reload();
+
+    }
     
 
     return (
@@ -53,7 +63,12 @@ const SideBar = ({ setSelectedComponent, userImage }) => {
               >
                 PROFILE 
               </MenuItem>
-              <MenuItem icon={<PowerSettingsNewOutlinedIcon />}> LOGOUT </MenuItem>
+              <MenuItem 
+                icon={<PowerSettingsNewOutlinedIcon />}
+                onClick={handleLogout}
+              > 
+                LOGOUT 
+              </MenuItem>
             </Menu>
         </Sidebar>
       </div> 
