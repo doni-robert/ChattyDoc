@@ -86,7 +86,7 @@ const ChatList = [
 const Chat_History = [
   {
     type: "msg",
-    message: "Hi 👋🏻, How are ya ?",
+    message: "Hi 👋🏻, How are you ?",
     incoming: true,
     outgoing: false,
   },
@@ -96,19 +96,19 @@ const Chat_History = [
   },
   {
     type: "msg",
-    message: "Hi 👋 Rob, not bad, u ?",
+    message: "Hi 👋 Rob, not bad, you ?",
     incoming: false,
     outgoing: true,
   },
   {
     type: "msg",
-    message: "Can you send me an abstarct image?",
+    message: "Can you send me an abstract image?",
     incoming: false,
     outgoing: true,
   },
   {
     type: "msg",
-    message: "Ya sure, sending you a pic",
+    message: "Yeah sure, sending you a pic",
     incoming: true,
     outgoing: false,
   },
@@ -153,5 +153,50 @@ const Chat_History = [
   },
 ];
 
+const Contact_List = [
+  {
+    id: 1,
+    img: faker.image.avatar(),
+    name: faker.person.fullName(),
+    about: faker.music.songName(),
+  },
+  {
+    id: 2,
+    img: faker.image.avatar(),
+    name: faker.person.fullName(),
+    about: faker.music.songName(),
+  },
+  {
+    id: 3,
+    img: faker.image.avatar(),
+    name: faker.person.fullName(),
+    about: faker.music.songName(),
+  },
+  {
+    id: 4,
+    img: faker.image.avatar(),
+    name: faker.person.fullName(),
+    about: faker.music.songName(),
+  },
+  {
+    id: 5,
+    img: faker.image.avatar(),
+    name: faker.person.fullName(),
+    about: faker.music.songName(),
+  },
+  {
+    id: 6,
+    img: faker.image.avatar(),
+    name: faker.person.fullName(),
+    about: faker.music.songName(),
+  },
+  {
+    id: 7,
+    img: faker.image.avatar(),
+    name: faker.person.fullName(),
+    about: faker.music.songName(),
+  },
+]
 
-export { ChatList, Chat_History };
+
+export { ChatList, Chat_History, Contact_List };
