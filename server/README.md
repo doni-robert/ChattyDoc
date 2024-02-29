@@ -6,7 +6,7 @@ This is the backend side</p>
 - Clone the repository to your local environment `git clone repo`
 - Install the dependencies, run `pip install -r requirements.txt`
 - Navigate to the backend branch `git checkout backend`
-- Navigate to the Backend folder `cd Backend`
+- Navigate to the server folder `cd server`
 - Select the environment you're working with before starting the application. On the terminal, run `export FLASK_ENV=development` or `export FLASK_ENV=production`. The default environment is testing. 
 - Each environment creates its own database, make sure you're on the correct environment. The test runs clears the database when a new run is made.
 - Run `main.py`
