@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Divider, Avatar, Badge } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
@@ -62,7 +63,7 @@ const ChatElement = ({ id, img, name, msg, time, unread, online }) => {
       </div>
       <div className="time-info">
         <div>
-          <Badge badgeContent={unread} color="primary" />
+          <Badge badgeContent={unread} color="#242657" />
         </div>
         <span>{time}</span>
       </div>
@@ -77,7 +78,9 @@ const Chats = () => {
         {/* Message list header */}
         <div className="chat-title">
           <h3>Chats</h3>
-          <button>New Chat</button>
+          <Link to="/contacts">
+            <button>New Chat</button>
+          </Link>
         </div>
 
         {/* Search bar */}
