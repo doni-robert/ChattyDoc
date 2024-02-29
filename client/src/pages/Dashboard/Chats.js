@@ -63,7 +63,7 @@ const ChatElement = ({ id, img, name, msg, time, unread, online }) => {
       </div>
       <div className="time-info">
         <div>
-          <Badge badgeContent={unread} color="#242657" />
+          <Badge badgeContent={unread} color="primary" />
         </div>
         <span>{time}</span>
       </div>
