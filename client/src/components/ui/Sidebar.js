@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
-import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
@@ -8,6 +8,7 @@ import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import PowerSettingsNewOutlinedIcon from '@mui/icons-material/PowerSettingsNewOutlined';
 import "../../assets/styles/sidebar.css";
+
 
 const SideBar = ({ setSelectedComponent }) => {
     // State for tracing the selected menu
@@ -27,40 +28,40 @@ const SideBar = ({ setSelectedComponent }) => {
               </MenuItem>
               <MenuItem 
                 onClick={() => handleMenuItemClick('homeDashboard')} 
-                icon={<GridViewOutlinedIcon />}
+                icon={<HomeOutlinedIcon />}
                 className={selectedMenuItem === 'homeDashboard' ? 'selected' : ''}
               >
-                HOME 
+                Home 
               </MenuItem>
               <MenuItem 
                 onClick={() => handleMenuItemClick('chat')} 
                 icon={<ChatBubbleOutlineOutlinedIcon />}
                 className={selectedMenuItem === 'chat' ? 'selected' : ''}
               > 
-                CHAT 
+                Chats
               </MenuItem>
               <MenuItem 
                 onClick={() => handleMenuItemClick('contacts')} 
                 icon={<PersonOutlinedIcon />}
                 className={selectedMenuItem === 'contacts' ? 'selected' : ''}
               >
-                CONTACT 
+                Contacts
               </MenuItem>
               <MenuItem 
                 onClick={() => handleMenuItemClick('notifications')}
                 icon={<NotificationsNoneOutlinedIcon />}
                 className={selectedMenuItem === 'notification' ? 'selected' : ''}
               >
-                NOTIFICATION 
+                Notifications
               </MenuItem>
-              <MenuItem icon={<CalendarMonthOutlinedIcon />}> CALENDAR </MenuItem>
-              <MenuItem icon={<SettingsOutlinedIcon />}> SETTINGS </MenuItem>
+              <MenuItem icon={<CalendarMonthOutlinedIcon />}> Calendar </MenuItem>
+              <MenuItem icon={<SettingsOutlinedIcon />}> Settings </MenuItem>
               {/* Lazy coding. Couldn't come up with a better way to push LOGOUT to the bottom */}
              
               <MenuItem></MenuItem>
               <MenuItem></MenuItem>
               <MenuItem></MenuItem>
-              <MenuItem icon={<PowerSettingsNewOutlinedIcon />}> LOGOUT </MenuItem>
+              <MenuItem icon={<PowerSettingsNewOutlinedIcon />}> Logout </MenuItem>
             </Menu>
         </Sidebar>
       </div> 
