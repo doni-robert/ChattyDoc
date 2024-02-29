@@ -1,12 +1,12 @@
 ## Chatty Doc
-DocTalk is a doctor-patient communication web-app designed to streamline healthcare interactions. 
+Chatty Doc is a doctor-patient communication web-app designed to streamline healthcare interactions. 
 The platform facilitates seamless communication between healthcare providers and patients, offering a range of features to enhance the 
 medical experience for both parties.
 
 ## Features
-* **Real-time Messaging:** Send and receive messages instantly without refreshing the page.
-* **User Authentication:** Secure authentication system ensures privacy and security.
-* **User Friendly Interface:** Clean and intuitive UI design for easy navigation and interaction.
+* **User Authentication:** A secure authentication system that ensures privacy and security.
+* **Real-time Messaging:** Ability to send and receive messages instantly.
+* **User Friendly Interface:** Intuitive and clear UI design for easy navigation and interaction.
 
 ## Tech Stack
 * **ReactJS:** React is a JavaScript library for building user interfaces
@@ -65,8 +65,8 @@ mongod
 
 ## Authors
 #### Rehema Owino
+[Github](https://github.com/R-Owino/)
 
 #### Robert Ndungu
+[Github](https://github.com/doni-robert/)
 
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
