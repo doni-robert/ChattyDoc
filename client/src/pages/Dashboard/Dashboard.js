@@ -1,33 +1,28 @@
-import React from 'react'
-import SideBar from '../../components/ui/Sidebar'
-import { useState } from 'react';
-import Notifications from '../../components/ui/Notifications'
-import Contacts from '../../components/ui/Contacts'
+import React from "react";
+import { useState } from "react";
+import SideBar from "../../components/ui/Sidebar";
+import Notifications from "../../components/ui/Notifications";
+import HomeDashboard from "./HomeDashboard";
+import Chats from "./Chats";
+import Contacts from "./Contacts";
 import "../../assets/styles/dashboard.css";
-import HomeDashboard from './HomeDashboard';
-import Chats from './Chats'
-
 
 const Dashboard = () => {
   //State for selecting component to display beside the SideBar
   // Default set to 'dashboardHome'
-  const [selectedComponent, setSelectedComponent] = useState('homeDashboard');
-  
+  const [selectedComponent, setSelectedComponent] = useState("homeDashboard");
 
   return (
-    <div className='dashboard-container'>
+    <div className="dashboard-container">
+      <SideBar setSelectedComponent={setSelectedComponent} />
 
-      <SideBar setSelectedComponent={setSelectedComponent}/>
-
-      {/* Conditional rendering to render the selectedComponent.
-          Currently renders dummy components */}
-      {selectedComponent === 'chat' && <Chats />}
-      {selectedComponent === 'contacts' && <Contacts />}
-      {selectedComponent === 'notifications' && <Notifications />}
-      {selectedComponent === 'homeDashboard' && <HomeDashboard />}  
-     
+      {/* Conditional rendering to render the selectedComponent */}
+      {selectedComponent === "chat" && <Chats />}
+      {selectedComponent === "contacts" && <Contacts />}
+      {selectedComponent === "notifications" && <Notifications />}
+      {selectedComponent === "homeDashboard" && <HomeDashboard />}
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
