@@ -139,7 +139,7 @@ button {
 .chat-list {
     display: flex;
     flex-direction: column;
-    overflow: auto;
+    overflow-y: scroll;
     max-height: 100%;
 }
 
