@@ -9,7 +9,8 @@ import '../../assets/styles/register.css';
 
 
 const Register = () => {
-  const [UserName, setUserName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -21,8 +22,10 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleChange = (event) => {
-    if (event.target.name === 'UserName') {
-      setUserName(event.target.value);
+    if (event.target.name === 'firstName') {
+      setFirstName(event.target.value);
+    } else if (event.target.name === 'lastName') {
+      setLastName(event.target.value);
     } else if (event.target.name === 'email') {
       setEmail(event.target.value);
       setEmailError('');
@@ -54,7 +57,8 @@ const Register = () => {
     try {
       // Make a POST request to the register endpoint
       const response = await axios.post('http://localhost:5000/auth/register/', {
-        username: UserName,
+        firstname: firstName,
+        lastname: lastName,
         email,
         password,
       });
@@ -87,15 +91,24 @@ const Register = () => {
 
         <form className="signup-form" onSubmit={handleFormSubmit}>
         <TextField
-            name="UserName"
-            label=" Username"
+            name="firstName"
+            label=" First Name"
             required
             fullWidth
-            value={UserName}
+            value={firstName}
             onChange={handleChange}
             style={{ marginBottom: '10px', width: '100%' }}
           />
 
+          <TextField
+            name="lastName"
+            label=" Last Name"
+            required
+            fullWidth
+            value={lastName}
+            onChange={handleChange}
+            style={{ marginBottom: '10px', width: '100%' }}
+          />
           <TextField
             name="email"
             type="email"
@@ -133,7 +146,7 @@ const Register = () => {
           
           <TextField
             name="confirmPassword"
-            type={showPassword ? 'text' : 'password'}
+            type={showConfirmPassword ? 'text' : 'password'}
             label="Confirm Password"
             required
             fullWidth

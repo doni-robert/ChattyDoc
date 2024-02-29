@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Button, TextField, InputAdornment, IconButton } from '@mui/material';
@@ -8,13 +8,22 @@ import axios from 'axios';
 import '../../assets/styles/login.css';
 
 
-const LoginPage = () => {
+const LoginPage = ({setIsLoggedIn}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('jwtToken');
+        if (token) {
+            // Token exists, user is already logged in hence redirect to dashboard
+            setIsLoggedIn(true);
+            navigate('/dashboard');
+        }
+    }, []);
 
     const handleChange = (event) => {
         if (event.target.name === 'email') {
@@ -47,6 +56,11 @@ const LoginPage = () => {
             console.log('Login Response:', response);
 
             if (response.status === 200) {
+                // Save token to local storage
+                const token = response.data.access_token
+                localStorage.setItem('jwtToken', token)
+                setIsLoggedIn(true)
+                
                 // Login successful, redirect to the dashboard
                 navigate('/dashboard');
             } else {

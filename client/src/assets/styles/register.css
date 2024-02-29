@@ -2,13 +2,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: auto;
+    height: 85vh;
     background-image: url('../images/signup.avif');
     background-position: left center;
     background-repeat: no-repeat;
     background-size: auto 100%;
     padding-top: 40px;
-    /* Add distance from the top of the page */
 }
 
 .signup-page {
@@ -91,7 +90,6 @@
         height: 100vh;
         padding-top: 30px;
         overflow-y: auto;
-        /* Adjust distance from the top of the page */
     }
 
     .signup-page {
