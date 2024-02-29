@@ -148,23 +148,9 @@ button {
     flex-direction: column;
 }
 
-.pinned-chats p {
-    font-size: medium;
-    font-weight: 500;
-    color: #676767;
-    margin-bottom: 1px;
-}
-
 .all-chats {
     display: flex;
     flex-direction: column;
-}
-
-.all-chats p {
-    font-size: medium;
-    font-weight: 500;
-    color: #676767;
-    margin-bottom: 1px;
 }
 
 .conversations {
