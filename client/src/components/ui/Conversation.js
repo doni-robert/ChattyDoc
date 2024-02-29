@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import {
   Avatar,
   Badge,
@@ -11,10 +11,20 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import SearchIcon from "@mui/icons-material/Search";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import MoodOutlinedIcon from "@mui/icons-material/MoodOutlined";
-import ArrowUpwardOutlinedIcon from "@mui/icons-material/ArrowUpwardOutlined";
+import SendIcon from "@mui/icons-material/Send";
 import { styled } from "@mui/material/styles";
 import { faker } from "@faker-js/faker";
+import EmojiPicker from "emoji-picker-react";
 import "../../assets/styles/conversation.css";
+import { Chat_History } from "../../data/fake_data";
+import {
+  DocMessage,
+  LinkMessage,
+  MediaMessage,
+  ReplyMessage,
+  TextMessage,
+  Timeline,
+} from "./Messages";
 
 const StyledInput = styled(TextField)(({ theme }) => ({
   "& .MuiInputBase-input": {
@@ -53,6 +63,13 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const Conversation = () => {
+  const [emojiPicker, setEmojiPicker] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const onEmojiClick = (event, emojiObject) => {
+    setMessage(message + emojiObject.emoji);
+  };
+
   return (
     <div
       style={{
@@ -96,14 +113,48 @@ const Conversation = () => {
         </div>
 
         {/* Messages */}
-        <div className="messages"></div>
+        <div className="messages-container">
+          <div className="message-list-container">
+            {Chat_History.map((el) => {
+              switch (el.type) {
+                case "divider":
+                  // timeline
+                  return <Timeline el={el} />;
+                case "msg":
+                  switch (el.subtype) {
+                    case "doc":
+                      // doc message
+                      return <DocMessage el={el} />;
+                    case "img":
+                      // image message
+                      return <MediaMessage el={el} />;
+                    case "link":
+                      // link message
+                      return <LinkMessage el={el} />;
+                    case "reply":
+                      // reply message
+                      return <ReplyMessage el={el} />;
+                    default:
+                      // text message
+                      return <TextMessage el={el} />;
+                  }
+
+                default:
+                  return <></>;
+              }
+            })}
+          </div>
+        </div>
+
         {/* Chat footer */}
         <div className="chat-footer">
           <div className="footer-details">
             <StyledInput
               fullWidth
-              placeholder="Write a message..."
+              placeholder="Type a message here..."
               variant="filled"
+              value={message}
+              onChange={(event) => setMessage(event.target.value)}
               InputProps={{
                 disableUnderline: true,
                 startAdornment: (
@@ -115,20 +166,19 @@ const Conversation = () => {
                 ),
                 endAdornment: (
                   <InputAdornment>
-                    <IconButton>
+                    <IconButton onClick={() => setEmojiPicker(!emojiPicker)}>
                       <MoodOutlinedIcon />
                     </IconButton>
+                    {emojiPicker ? <div className="emoji-picker"><EmojiPicker onEmojiClick={onEmojiClick} /></div> : null}
                   </InputAdornment>
                 ),
               }}
             />
           </div>
-          <div className="send-button">
-            <div className="send-icon">
-              <IconButton>
-                <ArrowUpwardOutlinedIcon />
-              </IconButton>
-            </div>
+          <div className="send-icon">
+            <IconButton>
+              <SendIcon />
+            </IconButton>
           </div>
         </div>
       </div>
