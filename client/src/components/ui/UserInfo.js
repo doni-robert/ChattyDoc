@@ -1,5 +1,4 @@
 import React from 'react'
-import UserImage from './UserImage';
 
 const UserInfo = ({userInfo, userImage}) => {
   return (
