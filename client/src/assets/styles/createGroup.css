@@ -1,0 +1,17 @@
+.dialog-content {
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.dialog-content > div:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
