@@ -1,0 +1,109 @@
+.profile-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.user-info-container {
+  width: 40vw;
+}
+
+.header-container > h2 {
+  color: #000;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  width: 382.39px;
+  height: 229.41px;
+}
+
+.update-info-container {
+  width: 40vw;
+  background-color: FAFBFF;
+}
+
+.user-details-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-container {
+  margin: 10px 50px;
+  background-color: #fff;
+  padding: 30px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  /* margin-top: 100px;
+    margin-bottom: 80px; */
+  height: 85%;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.user-details {
+  display: flex;
+  max-height: 35px;
+}
+
+.info-key {
+  width: 60px;
+}
+
+.info-value {
+  margin-left: 30px;
+  font-weight: normal;
+}
+
+.update-container {
+  margin: 50px 100px;
+  background-color: #fff;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  /* margin-top: 100px;
+    margin-bottom: 80px; */
+  /* height: auto; */
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+  /* margin-left: auto;
+    margin-right: 200px; */
+}
+
+.text-input {
+  margin-left: 80px;
+}
+
+.bio-container {
+  display: flex;
+}
+
+.about-container {
+  width: 60px;
+  /* Additional styling for the name container */
+}
+
+.bio-details {
+  flex: 2;
+  max-width: 100%; /* Limit width to allow overflow */
+  overflow: visible; /* Hide overflow text */
+}
+
+.bio-value {
+  max-width: 100%; /* Limit width of bio within its container */
+  margin-left: 30px;
+  font-weight: normal;
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis; /* Show ellipsis (...) for overflow text */
+}
+
+.bio-input {
+  margin-top: 10px;
+  resize: none; /* Disable resizing by the user */
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  height: 90px; /* Set a minimum height */
+  border: 1px solid #ccc; /* Optional border styling */
+}
+
+.bio-input-container {
+  display: flex;
+  flex-direction: column;
+}
