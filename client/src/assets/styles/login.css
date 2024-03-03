@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: auto;
+    height: 70vh;
     background-image: url('../images/login.png');
     background-position: 10% center;
     background-repeat: no-repeat;
