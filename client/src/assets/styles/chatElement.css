@@ -1,0 +1,76 @@
+.chat-element {
+    width: calc(100% - 10px);
+    border-radius: 8px;
+    padding: 6px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;  
+    justify-content: space-between;
+    background-color: aliceblue;
+    border-bottom: 1px solid #b1ccf5;
+}
+
+.contact-details {
+    display: flex;
+}
+
+.contact-image {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: row;
+}
+
+.avatar-badge {
+    flex-direction: row;
+    margin-right: 10px;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    align-items: inherit;
+    justify-content: center;
+}
+
+.contact-info h5 {
+    margin-top: 1px;
+    margin-bottom: 4px;
+    color: #000;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.contact-info p {
+    margin-top: 1px;
+    margin-bottom: 1px;
+    color: #000;
+    font-size: 10px;
+    font-weight: 400;
+    
+}
+
+.time-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.chat-list {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+
+.pinned-chats {
+    display: flex;
+    flex-direction: column;
+}
+
+.all-chats {
+    display: flex;
+    flex-direction: column;
+}
