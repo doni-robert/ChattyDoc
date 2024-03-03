@@ -14,7 +14,7 @@ import MoodOutlinedIcon from "@mui/icons-material/MoodOutlined";
 import SendIcon from "@mui/icons-material/Send";
 import { styled } from "@mui/material/styles";
 import { faker } from "@faker-js/faker";
-import EmojiPicker from "emoji-picker-react";
+
 import "../../assets/styles/conversation.css";
 import { Chat_History } from "../../data/fake_data";
 import {
