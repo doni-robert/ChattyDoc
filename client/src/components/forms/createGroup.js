@@ -38,9 +38,9 @@ const CreateGroupForm = ({ handleClose }) => {
   const {
     reset,
     watch,
-    setError,
+    setValue,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitSuccessful, isValid },
+    formState: { isSubmitting, isValid },
   } = methods;
 
   const onSubmit = async (data) => {
@@ -95,6 +95,8 @@ const CreateGroup = ({ open, handleClose }) => {
       open={open}
       TransitionComponent={Transition}
       keepMounted
+      onClose={handleClose}
+      alert-describedby="alert-dialog-slide-description"
       sx={{ p: 4 }}
     >
       <DialogTitle>Create new group</DialogTitle>

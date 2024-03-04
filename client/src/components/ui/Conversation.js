@@ -5,6 +5,7 @@ import {
   IconButton,
   InputAdornment,
   TextField,
+  Box,
 } from "@mui/material";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import PhoneIcon from "@mui/icons-material/Phone";
@@ -14,9 +15,9 @@ import MoodOutlinedIcon from "@mui/icons-material/MoodOutlined";
 import SendIcon from "@mui/icons-material/Send";
 import { styled } from "@mui/material/styles";
 import { faker } from "@faker-js/faker";
-
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
 import "../../assets/styles/conversation.css";
-import { Chat_History } from "../../data/fake_data";
 import {
   DocMessage,
   LinkMessage,
@@ -63,11 +64,14 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const Conversation = () => {
-  const [emojiPicker, setEmojiPicker] = useState(false);
-  const [message, setMessage] = useState("");
+  const [EmojiPicker, setEmojiPicker] = useState(false);
 
-  const onEmojiClick = (event, emojiObject) => {
-    setMessage(message + emojiObject.emoji);
+  const handleToggleEmojiPicker = () => {
+    setEmojiPicker((prev) => !prev);
+  };
+
+  const handleEmojiSelect = (emoji) => {
+    console.log("selected emoji:", emoji);
   };
 
   return (
@@ -153,8 +157,6 @@ const Conversation = () => {
               fullWidth
               placeholder="Type a message here..."
               variant="filled"
-              value={message}
-              onChange={(event) => setMessage(event.target.value)}
               InputProps={{
                 disableUnderline: true,
                 startAdornment: (
@@ -166,10 +168,27 @@ const Conversation = () => {
                 ),
                 endAdornment: (
                   <InputAdornment>
-                    <IconButton onClick={() => setEmojiPicker(!emojiPicker)}>
+                    <IconButton onClick={handleToggleEmojiPicker}>
                       <MoodOutlinedIcon />
                     </IconButton>
-                    {emojiPicker ? <div className="emoji-picker"><EmojiPicker onEmojiClick={onEmojiClick} /></div> : null}
+                    {EmojiPicker && (
+                  <Box
+                    sx={{
+                      zIndex: 10,
+                      position: "fixed",
+                      bottom: 60,
+                      right: 100,
+                    }}
+                  >
+                    <Picker
+                      data={data}
+                      onSelect={handleEmojiSelect}
+                      perLine={8}
+                      showPreview={false}
+                      showSkinTones={false}
+                    />
+                  </Box>
+                )}
                   </InputAdornment>
                 ),
               }}

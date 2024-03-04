@@ -20,16 +20,3 @@ class Chat(Document):
     """
     participants = ListField(ReferenceField(User), required=True)
     messages = ListField(EmbeddedDocumentField(Message), default=[])
-
-    # Possible methods
-
-    # def get_chat():
-
-    # def get_chat():
-
-    # def delete_chat():
-
-    # def delete_message():
-
-
-
