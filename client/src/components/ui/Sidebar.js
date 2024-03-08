@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
-import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import PowerSettingsNewOutlinedIcon from "@mui/icons-material/PowerSettingsNewOutlined";
 import "../../assets/styles/sidebar.css";
 
@@ -34,6 +32,7 @@ const SideBar = ({ setSelectedComponent, userImage }) => {
           >
             <img src={userImage} alt="profile pic" className="profile-pic" />
           </div>
+          {/* to landing page */}
           <MenuItem
             onClick={() => handleMenuItemClick("homeDashboard")}
             icon={<HomeOutlinedIcon />}
@@ -41,6 +40,8 @@ const SideBar = ({ setSelectedComponent, userImage }) => {
           >
             Home
           </MenuItem>
+
+          {/* to chats page */}
           <MenuItem
             onClick={() => handleMenuItemClick("chat")}
             icon={<ChatBubbleOutlineOutlinedIcon />}
@@ -48,20 +49,8 @@ const SideBar = ({ setSelectedComponent, userImage }) => {
           >
             Chats
           </MenuItem>
-          <MenuItem
-            onClick={() => handleMenuItemClick("groups")}
-            icon={<GroupOutlinedIcon />}
-            className={selectedMenuItem === "groups" ? "selected" : ""}
-          >
-            Groups
-          </MenuItem>
-          <MenuItem
-            onClick={() => handleMenuItemClick("contacts")}
-            icon={<PersonOutlinedIcon />}
-            className={selectedMenuItem === "contacts" ? "selected" : ""}
-          >
-            Contacts
-          </MenuItem>
+
+          {/* Logout */}
           <MenuItem
             icon={<PowerSettingsNewOutlinedIcon />}
             onClick={handleLogout}
