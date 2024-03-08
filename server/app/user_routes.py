@@ -4,11 +4,7 @@
 from flask import Blueprint, request, jsonify, make_response
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from functools import wraps
-from datetime import datetime
-from models.chat_message import ChatMessage
-from models.chat_room import ChatRoom
 from models.user import User
-from models.contacts import Contact
 from models.revoked_token import RevokedToken
 from bson import Binary
 import base64
@@ -48,12 +44,14 @@ def get_user_info(current_user):
     """ Gets the information of the current user """
     firstname = User.objects(email=current_user).first().firstname
     lastname = User.objects(email=current_user).first().lastname
+    bio = User.objects(email=current_user).first().bio
     email = current_user
 
     user_info = {
             "firstName": firstname,
             "lastName": lastname,
-            "email": email
+            "email": email,
+            "bio": bio
             }
     return make_response(jsonify(user_info), 201)
 
@@ -68,12 +66,14 @@ def update_user_info(current_user):
     data = request.json
     new_firstname = data.get('firstName')
     new_lastname = data.get('lastName')
+    new_bio = data.get('bio')
 
     # Update the user information in the database
     user = User.objects(email=current_user).first()
     if user:
         user.firstname = new_firstname
         user.lastname = new_lastname
+        user.bio = new_bio
         user.save()  # Save the changes
         return make_response(jsonify({"message": "User information updated successfully"}), 200)
     else:
@@ -137,45 +137,3 @@ def upload_image(current_user):
     return make_response(
         jsonify({"message": 'Upload successful'}),
         201)
-
-@user_bp.route('/get_contacts', methods=['GET'])
-@logged_in
-def get_contacts(current_user):
-    """ Retrieves a user's contacts """
-    user = User.objects(email=current_user).first()
-    if user:
-        contacts = Contact.get_contacts(user)
-        return make_response(jsonify(contacts), 201)
-    return make_response(jsonify({"error": "User not found"}), 404)
-
-@user_bp.route('/add_contact', methods=['POST'])
-@logged_in
-def add_contact(current_user):
-    """ Adds a contact to a user's contact list """
-    data = request.json
-    contact_first_name = data.get('firstname')
-    contact_last_name = data.get('lastname')
-
-    user = User.objects(email=current_user).first()
-    contact = User.objects(firstname=contact_first_name, lastname=contact_last_name).first()
-
-    if user and contact:
-        Contact.add_contact(user, contact)
-        return make_response(jsonify({"message": "Contact added successfully"}), 201)
-    return make_response(jsonify({"error": "User or contact not found"}), 404)
-
-@user_bp.route('/remove_contact', methods=['DELETE'])
-@logged_in
-def remove_contact(current_user):
-    """ Removes a contact from a user's contact list """
-    data = request.json
-    contact_first_name = data.get('firstname')
-    contact_last_name = data.get('lastname')
-
-    user = User.objects(email=current_user).first()
-    contact = User.objects(firstname=contact_first_name, lastname=contact_last_name).first()
-
-    if user and contact:
-        Contact.remove_contact(user, contact)
-        return make_response(jsonify({"message": "Contact removed successfully"}), 200)
-    return make_response(jsonify({"error": "User or contact not found"}), 404)

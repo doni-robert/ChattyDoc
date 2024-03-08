@@ -6,7 +6,7 @@ from flask import Flask
 from config import DevConfig, ProdConfig, TestConfig
 from db import init_mongodb
 from flask_jwt_extended import JWTManager
-from . import auth, chat_room_routes, chat_message_routes, user_routes
+from . import auth, user_routes, chat_routes
 
 
 app = Flask(__name__, instance_relative_config=True)
@@ -21,14 +21,11 @@ else:  # Default to testing environment
 
 # app routes
 app.register_blueprint(auth.bp)
-app.register_blueprint(chat_room_routes.room_bp)
-app.register_blueprint(chat_message_routes.chats_bp)
 app.register_blueprint(user_routes.user_bp)
+app.register_blueprint(chat_routes.chats_bp)
 
 # database initialization
 init_mongodb(app)
 
 # JWT
 JWTManager(app)
-
-from app import auth, chat_room_routes, chat_message_routes
