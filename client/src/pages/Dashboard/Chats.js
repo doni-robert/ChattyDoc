@@ -1,126 +1,171 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Divider, Avatar, Badge } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import SearchIcon from "@mui/icons-material/Search";
-import { faker } from "@faker-js/faker";
-import Conversation from "../../components/ui/Conversation";
-import { ChatList } from "../../data/fake_data";
-import "../../assets/styles/chats.css";
+import React, { Component } from "react";
+import ControlBar from "../../components/ui/ControlBar";
+import Conversations from "../../components/ui/Conversations";
+import Flash from "../../components/ui/Flash";
+import io from "socket.io-client";
+import "../../assets/styles/chats.css"
 
-const StyledBadge = styled(Badge)(({ theme }) => ({
-  "& .MuiBadge-badge": {
-    backgroundColor: "#44b700",
-    color: "#44b700",
-    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-    "&::after": {
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      borderRadius: "50%",
-      animation: "ripple 1.2s infinite ease-in-out",
-      border: "1px solid currentColor",
-      content: '""',
-    },
-  },
-  "@keyframes ripple": {
-    "0%": {
-      transform: "scale(.8)",
-      opacity: 1,
-    },
-    "100%": {
-      transform: "scale(2.4)",
-      opacity: 0,
-    },
-  },
-}));
+const socket = io("http://localhost:5000");
 
-const ChatElement = ({ id, img, name, msg, time, unread, online }) => {
-  return (
-    <div className="chat-element">
-      <div className="contact-details">
-        <div className="contact-image">
-          <div className="avatar-badge">
-            {online ? (
-              <StyledBadge
-                overlap="circular"
-                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                variant="dot"
-              >
-                <Avatar src={faker.image.avatar()} alt="Contact Avatar" />
-              </StyledBadge>
-            ) : (
-              <Avatar src={faker.image.avatar()} alt="Contact Avatar" />
-            )}
-          </div>
-        </div>
-        <div className="contact-info">
-          <h5>{name}</h5>
-          <p>{msg}</p>
-        </div>
+class Chats extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      activeUsers: [],
+      rooms: [],
+      messages: [],
+      flashNotice: "",
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.joinRoom = this.joinRoom.bind(this);
+    this.leaveRoom = this.leaveRoom.bind(this);
+    this.sendMessage = this.sendMessage.bind(this);
+    this.setUsername = this.setUsername.bind(this);
+    this.createFlash = this.createFlash.bind(this);
+    this.clearFlash = this.clearFlash.bind(this);
+  }
+
+  handleChange(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  }
+
+  setUsername(username) {
+    const oldName = this.state.username;
+    if (oldName && oldName !== username) {
+      socket.emit("deactivate_user", { username: oldName });
+    }
+    this.setState({ username }, () => {
+      socket.emit("activate_user", { username: this.state.username });
+    });
+  }
+
+  loadMessages() {
+    const savedMessages = window.localStorage.getItem("messages");
+    if (savedMessages) {
+      this.setState({ messages: JSON.parse(savedMessages) || [] });
+    }
+  }
+
+  setSocketListeners() {
+    socket.on("message", (data) => {
+      console.log(data.message);
+    });
+
+    socket.on("message_sent", (message) => {
+      const room = message["room"];
+      this.setState({ messages: [...this.state.messages, message] }, () => {
+        window.localStorage.setItem(
+          "messages",
+          JSON.stringify(this.state.messages)
+        );
+        if (this.state.rooms.indexOf(room) === -1) {
+          this.setState({ rooms: [...this.state.rooms, room] });
+        }
+      });
+    });
+
+    socket.on("retrieve_active_users", () => {
+      if (this.state.username) {
+        socket.emit("activate_user", { username: this.state.username });
+      }
+    });
+
+    socket.on("user_activated", (data) => {
+      const user = data["user"];
+      const { activeUsers } = this.state;
+      if (activeUsers.indexOf(user) === -1 && user !== this.state.username) {
+        this.setState({ activeUsers: [...activeUsers, user] }, () => {
+          this.createFlash(`${user} is online`);
+        });
+      }
+    });
+
+    socket.on("user_deactivated", (data) => {
+      const deactivatedUser = data["user"];
+      const { activeUsers } = this.state;
+      if (activeUsers.indexOf(deactivatedUser) !== -1) {
+        this.setState({
+          activeUsers: activeUsers.filter((user) => {
+            return user !== deactivatedUser;
+          }),
+        });
+      }
+    });
+
+    socket.on("open_room", (data) => {
+      const room = data["room"];
+      const openRooms = this.state.rooms;
+      const userInRoom = room.split("|").indexOf(this.state.username) !== -1;
+      const roomNotOpen = openRooms.indexOf(room) === -1;
+      if (userInRoom && roomNotOpen) {
+        this.joinRoom(room, this.state.username);
+      }
+    });
+  }
+
+  joinRoom(room, username, partner) {
+    room = room || [username, partner].sort().join("|");
+    if (this.state.rooms.indexOf(room) === -1) {
+      this.setState({ rooms: [...this.state.rooms, room] }, () => {
+        socket.emit("join_room", { username, room });
+      });
+    }
+  }
+
+  leaveRoom(room, username) {
+    this.setState({ rooms: this.state.rooms.filter((r) => r !== room) });
+  }
+
+  sendMessage(message, room) {
+    socket.emit("send_message", {
+      room,
+      author: this.state.username,
+      body: message,
+      timeStamp: Date.now(),
+    });
+  }
+
+  createFlash(text) {
+    this.setState({ flashNotice: "" }, () => {
+      this.setState({ flashNotice: text }, () => {
+        window.setTimeout(this.clearFlash, 2500);
+      });
+    });
+  }
+
+  clearFlash() {
+    this.setState({ flashNotice: "" });
+  }
+
+  componentDidMount() {
+    this.loadMessages();
+    this.setSocketListeners();
+  }
+
+  render() {
+    const { username, rooms, messages, flashNotice } = this.state;
+
+    return (
+      <div className="chat-section">
+        <Flash notice={flashNotice} />
+        <ControlBar
+          activeUsers={this.state.activeUsers}
+          setUsername={this.setUsername}
+          createFlash={this.createFlash}
+          joinRoom={this.joinRoom}
+        />
+        <Conversations
+          rooms={rooms}
+          messages={messages}
+          username={username}
+          leaveRoom={this.leaveRoom}
+          sendMessage={this.sendMessage}
+        />
       </div>
-      <div className="time-info">
-        <div>
-          <Badge badgeContent={unread} color="primary" />
-        </div>
-        <span>{time}</span>
-      </div>
-    </div>
-  );
-};
-
-const Chats = () => {
-  return (
-    <div className="general-app">
-      <div className="chat-container">
-        {/* Message list header */}
-        <div className="chat-title">
-          <h3>Chats</h3>
-          <Link to="/contacts">
-            <button>New Chat</button>
-          </Link>
-        </div>
-
-        {/* Search bar */}
-        <div className="search-bar">
-          <div className="search-container">
-            <div className="search-icon">
-              <SearchIcon />
-            </div>
-            <div className="search-input">
-              <input type="text" placeholder="Search..." aria-label="Search" />
-            </div>
-          </div>
-        </div>
-
-        {/* Divide chat-container into 2 */}
-        <Divider />
-
-        {/* Chats section */}
-        <div className="chat-list">
-          <div className="pinned-chats">
-            <p>Pinned</p>
-            {ChatList.filter((el) => el.pinned).map((el) => {
-              return <ChatElement {...el} />;
-            })}
-          </div>
-          <div className="all-chats">
-            <p>All Chats</p>
-            {ChatList.filter((el) => !el.pinned).map((el) => {
-              return <ChatElement {...el} />;
-            })}
-          </div>
-        </div>
-      </div>
-
-      {/* Conversation Section */}
-      <div className="conversations">
-        <Conversation />
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default Chats;
