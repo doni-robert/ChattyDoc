@@ -2,8 +2,8 @@
 """ Main app module """
 
 from app import app
-from conn import socketio
+from conn import socket
 
 
 if __name__ == "__main__":
-    socketio.run(app, host='0.0.0.0', port=5000, debug=True)
+    socket.run(app, host='0.0.0.0', port=5000, debug=True)
