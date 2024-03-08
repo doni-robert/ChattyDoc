@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import SideBar from "../../components/ui/Sidebar";
 import HomeDashboard from "./HomeDashboard";
 import Chats from "./Chats";
-import Contacts from "./Contacts";
-import Groups from "./Groups";
 import Profile from "../../components/ui/Profile";
 import "../../assets/styles/dashboard.css";
 import onlineDoctor from "../../assets/images/user_icon_001.jpg";
@@ -21,7 +19,7 @@ const Dashboard = () => {
     bio: "",
   });
 
-  const { firstName, lastName, email, bio } = userInfo;
+  const { firstName } = userInfo;
 
   const [userImage, setUserImage] = useState(onlineDoctor);
 
@@ -112,8 +110,6 @@ const Dashboard = () => {
         />
       )}
       {selectedComponent === "chat" && <Chats />}
-      {selectedComponent === "groups" && <Groups />}
-      {selectedComponent === "contacts" && <Contacts />}
       {selectedComponent === "homeDashboard" && (
         <HomeDashboard firstName={firstName} />
       )}
