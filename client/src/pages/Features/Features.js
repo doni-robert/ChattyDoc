@@ -66,7 +66,7 @@ const Features = () => {
             <div className="separator-line"></div>
 
             <div className="login-link">
-                Start today and get instant help from a medical professional. <Link to="/login" >
+                Join today and get instant help from a medical professional. <Link to="/login" >
                     Start Here
                 </Link>
             </div>
