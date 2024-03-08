@@ -1,0 +1,65 @@
+.home-dashboard-container {
+    display: flex;
+    width: 100%;
+    justify-content: baseline;
+    flex-direction: column;   
+}
+
+.welcome-message-container {
+    display: flex;  
+    height: 10vh;
+    width: 95%;
+    justify-content: space-around;
+    position: relative;
+    padding-top: 40px;
+    margin-top: 50px;
+}
+
+.welcome-message {
+    display: flex;   
+}
+
+.welcome-message-text {
+    background-color: #242657;
+    color: #FFFFFF;
+    width: 500px;
+    margin-left: 50px;
+    padding-left: 50px;
+    padding-top: 10px;
+    border-radius: 10px 0 0 10px;
+}
+
+.welcome-message-text p{
+    margin: 0;
+}
+
+.date {
+    display:flex;
+    background-color: #242657;
+    color: #FFFFFF;
+    padding-left: 30px;
+    padding-right: 30px;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.profile-pic {
+    width: 60%;
+    height: 100%;
+}
+
+.online-doctor {
+    width: 100%;
+    height: 100%;
+    border-radius: 0 10px 10px 0;
+}
+.home-dashboard-images {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+}
+
+.home-dashboard-images img {
+    height: 60%;
+    padding-top: 20px;   
+}
