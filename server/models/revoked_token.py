@@ -20,8 +20,9 @@ class RevokedToken(Document):
     @staticmethod
     def is_token_blacklisted(jti):
         """ Check if the token JTI is in the blocklist stored in MongoDB"""
+        
         return RevokedToken.objects(jti=jti).first() is not None
-
+    
     @staticmethod
     def add_token_to_blocklist(jti):
         """ Creates and saves blocked token"""

@@ -12,6 +12,7 @@ class User(Document):
     lastname = StringField(max_length=50, required=True)
     password = StringField(max_length=255, required=True)
     image = BinaryField()
+    bio = StringField()
 
     meta = {'allow_inheritance': True}
 
@@ -39,16 +40,17 @@ class User(Document):
 
         return new_user
 
-    def get_contacts(self):
-        """ Retrieves the relevant contacts for a user"""
-        from models.doctor import Doctor
-        from models.patient import Patient
 
-        if isinstance(self, Doctor):
-            return self.patients
+    # def get_contacts(self):
+    #     """ Retrieves the relevant contacts for a user"""
+    #     from models.doctor import Doctor
+    #     from models.patient import Patient
 
-        if isinstance(self, Patient):
-            return self.doctors
+    #     if isinstance(self, Doctor):
+    #         return self.patients
+
+    #     if isinstance(self, Patient):
+    #         return self.doctors
 
     def remove_user(self):
         """ Removes a user from the database """

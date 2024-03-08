@@ -12,7 +12,6 @@ class ChatMessage(Document):
     sender = ReferenceField(User, required=True)
     receiver = ReferenceField(User, required=True)
     created_at = DateTimeField(default=datetime.now)
-    updated_at = DateTimeField(default=datetime.now)
     chat_room = ReferenceField('ChatRoom', required=True)
 
     meta = {
