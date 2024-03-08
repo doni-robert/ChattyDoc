@@ -22,7 +22,7 @@ const LoginPage = ({ setIsLoggedIn }) => {
       setIsLoggedIn(true);
       navigate("/dashboard");
     }
-  }, []);
+  });
 
   const handleChange = (event) => {
     if (event.target.name === "email") {
