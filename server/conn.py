@@ -1,42 +1,50 @@
-#!/usr/bin/env python3
-""" socket connection """
+#!/usr/bin/python3
+""" Socket connection """
 
 from app import app
-from flask import request
 from flask_cors import CORS
-from flask_socketio import SocketIO, emit
-from models.user import User
+from flask_socketio import SocketIO, emit, join_room, leave_room
 
 CORS(app, resources={r"/*": {"origins": "*"}})
-socketio = SocketIO(app, cors_allowed_origins="*")
-
-socketio.on("connect")
-def handle_connect():
-    """ handle user connection """
-    user_id = request.sid
-    if user_id is not None and user_id:
-        try:
-            user = User.objects.get(id=user_id).first()
-            if user:
-                user.status = "online"
-                user.save()
-        except Exception as e:
-            print(e)
-
-socketio.on("disconnect")
-def handle_disconnect():
-    """ handle user disconnection """
-    user_id = request.sid
-    if user_id is not None and user_id:
-        try:
-            user = User.objects.get(id=user_id).first()
-            if user:
-                user.status = "offline"
-                user.save()
-        except Exception as e:
-            print(e)
+socket = SocketIO(app, cors_allowed_origins="http://localhost:3000")
 
 
+@socket.on('connect')
+def on_connect():
+    print('user connected')
+    retrieve_active_users()
 
-if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', debug=True)
+
+def retrieve_active_users():
+    emit('retrieve_active_users', broadcast=True)
+
+
+@socket.on('activate_user')
+def on_active_user(data):
+    user = data.get('username')
+    emit('user_activated', {'user': user}, broadcast=True)
+
+
+@socket.on('deactivate_user')
+def on_inactive_user(data):
+    user = data.get('username')
+    emit('user_deactivated', {'user': user}, broadcast=True)
+
+
+@socket.on('join_room')
+def on_join(data):
+    room = data['room']
+    join_room(room)
+    emit('open_room', {'room': room}, broadcast=True)
+
+@socket.on('leave_room')
+def on_leave_room(data):
+    username = data['username']
+    room = data['room']
+    leave_room(room)
+    emit({'username': username}, {'room': room}, broadcast=True)
+
+@socket.on('send_message')
+def on_chat_sent(data):
+    room = data['room']
+    emit('message_sent', data, room=room)
