@@ -128,3 +128,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Ignore Python bytecode cache directories
+**/__pycache__/
+
+# Ignore environment directory
+server/env/
