@@ -21,3 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Ignore Python bytecode cache directories
+**/__pycache__/
+
+# Ignore environment directory
+server/env/

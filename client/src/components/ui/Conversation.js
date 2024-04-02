@@ -26,6 +26,7 @@ import {
   TextMessage,
   Timeline,
 } from "./Messages";
+import { Chat_History } from "../../data/fake_data";
 
 const StyledInput = styled(TextField)(({ theme }) => ({
   "& .MuiInputBase-input": {
