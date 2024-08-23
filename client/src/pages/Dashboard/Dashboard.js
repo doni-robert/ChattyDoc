@@ -30,7 +30,7 @@ const Dashboard = () => {
     const fetchUserInfo = async () => {
       try {
         // Get JWT token from localStorage
-        const token = localStorage.getItem('jwtToken');
+        const token = sessionStorage.getItem('authToken');
 
         if (!token) {
           throw new Error('JWT token not found');
@@ -43,7 +43,7 @@ const Dashboard = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(response)
+        
         if (!response.ok) {
           throw new Error('Failed to fetch user info');
         }
