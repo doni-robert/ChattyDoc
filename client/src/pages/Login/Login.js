@@ -6,22 +6,30 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
 import '../../assets/styles/login.css';
+import { jwtDecode } from 'jwt-decode';
+import UsersContext from '../../context/UsersContext';
 
 
-const LoginPage = ({setIsLoggedIn}) => {
+
+const LoginPage = ({setIsLoggedIn, isLoggedIn}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
+    const { loggedInUsers, addUser, removeUser } = UsersContext
 
     useEffect(() => {
-        const token = localStorage.getItem('jwtToken');
+        const token = sessionStorage.getItem('authToken');
         if (token) {
+            const decodedToken = jwtDecode(token);
+            console.log(isLoggedIn)
+            if (!isLoggedIn) {
             // Token exists, user is already logged in hence redirect to dashboard
-            setIsLoggedIn(true);
-            navigate('/dashboard');
+                setIsLoggedIn(true);
+                navigate('/dashboard');
+            }
         }
     }, []);
 
@@ -58,7 +66,7 @@ const LoginPage = ({setIsLoggedIn}) => {
             if (response.status === 200) {
                 // Save token to local storage
                 const token = response.data.access_token
-                localStorage.setItem('jwtToken', token)
+                sessionStorage.setItem('authToken', token);
                 setIsLoggedIn(true)
                 
                 // Login successful, redirect to the dashboard
