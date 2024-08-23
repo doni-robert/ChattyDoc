@@ -25,6 +25,12 @@ class User(Document):
     def is_active():
         """ Checks whether a user is active """
         return True
+    
+    def to_dict(self):
+        return {
+            'firstname': self.firstname,
+            'lastname': self.lastname,
+        }
 
     def get_user_by_email(email):
         """ Retrieves a user based on an email"""
@@ -65,3 +71,4 @@ class User(Document):
         if user and user.password == password:
             return user
         return None
+

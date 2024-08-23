@@ -140,3 +140,10 @@ def upload_image(current_user):
     return make_response(
         jsonify({"message": 'Upload successful'}),
         201)
+
+@user_bp.route('/get_users', methods=['GET'])
+def get_users():
+    users = User.objects()
+    print(users)
+    users_list = [user.to_dict() for user in users]
+    return jsonify({"users": users_list})
