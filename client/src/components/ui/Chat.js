@@ -3,9 +3,11 @@ import ChatWindow from './ChatWindow';
 import MessageInput from './MessageInput';
 import UserList from './UserList';
 import '../../assets/styles/Chat.css';
+import io from 'socket.io-client';
 
+const socket = io('http://localhost:5000'); // Initialize Socket.IO client, adjust URL to your backend
 
-const Chat = () => {
+const Chat = ({ userInfo }) => {
   // State to hold messages, where the key is the username and the value is an array of messages
   const [messages, setMessages] = useState({});
   // State to hold the currently selected user
@@ -26,6 +28,8 @@ const Chat = () => {
         })
         .catch(error => console.error('Error fetching messages:', error)); // Handle any errors
     }
+
+
   }, [selectedUser]);
 
   // Function to send a message
@@ -33,27 +37,18 @@ const Chat = () => {
     if (selectedUser) {
       const newMessage = {
         text,
-        sender: "You",
-        user: selectedUser
+        sender: {firstname: userInfo.firstName, lastname: userInfo.lastName},
+        recipient: selectedUser
       };
 
-      // Post the new message to the server
-      fetch(`/api/messages/${selectedUser}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newMessage) // Convert the message object to JSON
-      })
-        .then(response => response.json()) // Parse the JSON from the response
-        .then(data => {
-          // Update state with the sent message
-          setMessages(prevMessages => ({
-            ...prevMessages,
-            [selectedUser]: [...(prevMessages[selectedUser] || []), data]
-          }));
-        })
-        .catch(error => console.error('Error sending message:', error)); // Handle any errors
+      // Update state with the new message immediately
+      setMessages((prevMessages) => ({
+        ...prevMessages,
+        [selectedUser]: [...(prevMessages[selectedUser] || []), newMessage],
+      }));
+
+      // Emit the new message to the server
+      socket.emit('send_message', newMessage);
     }
   };
 

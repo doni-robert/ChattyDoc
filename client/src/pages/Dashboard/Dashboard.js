@@ -110,7 +110,7 @@ const Dashboard = () => {
                                                     userImage={userImage} 
                                                     setUserImage={setUserImage}
                                                     />}
-      {selectedComponent === 'chat' && <Chat />}
+      {selectedComponent === 'chat' && <Chat userInfo={userInfo } />}
       {selectedComponent === 'contacts' && <Contacts />}
       {selectedComponent === 'notifications' && <Notifications />}
       {selectedComponent === 'homeDashboard' && <HomeDashboard firstName={firstName} />}  
