@@ -17,8 +17,14 @@ class Message(Document):
 
     def to_dict(self):
         return {
-            "sender": self.sender.username,
-            "recipient": self.recipient.username,
+            "sender": {
+                "firstname": self.sender.firstname,
+                "lastname": self.sender.lastname,
+            },
+            "recipient": {
+                "firstname": self.recipient.firstname,
+                "lastname": self.recipient.lastname,
+            },
             "text": self.text,
             "timestamp": self.timestamp.isoformat()
         }

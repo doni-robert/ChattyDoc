@@ -38,6 +38,16 @@ class User(Document):
             user = User.objects(email=email).first()
 
             return user
+        
+    def get_user_by_kwargs(**kwargs):
+        try:
+            # Attempt to retrieve the user using the provided keyword arguments
+            user = User.objects.get(**kwargs)
+            return user
+        except Exception as e:
+            # Handle any other exceptions and print the error message
+            print(f"An error occurred: {str(e)}")
+            return None
 
     def create_user(email, firstname, lastname, password):
         """ Creates and adds a new user to the database """
