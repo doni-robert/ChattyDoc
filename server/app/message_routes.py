@@ -46,22 +46,27 @@ def logged_in(func):
 # from . import app, db
 # from .models import User, Message
 
-@message_bp.route('/get_messages', methods=['GET'])
+@message_bp.route('/get_messages/<recipient>', methods=['GET'])
 @logged_in
 
-def get_messages(current_user):
+def get_messages(current_user, recipient):
     try:
-        # Get recipient from the request arguments
-        recipient = request.args.get('recipient')
-        
+        print('get mesage')
         # Check if recipient is provided
         if not recipient:
             return jsonify({"error": "Recipient parameter is required"}), 400
+        recipient_firstname, recipient_lastname = recipient.split('_')
+
+        recipient_obj = User.get_user_by_kwargs(firstname=recipient_firstname, lastname=recipient_lastname)
+        sender_obj = User.get_user_by_kwargs(email=current_user)
+
+        print('get mesage')
+        print(current_user, recipient_lastname)
 
         # Query the Message model to get messages between current_user and recipient
         messages = Message.objects(
-            (Message.sender == current_user.username) & (Message.recipient == recipient) |
-            (Message.sender == recipient) & (Message.recipient == current_user.username)
+            (Message.sender == sender_obj) & (Message.recipient == recipient_obj) |
+            (Message.sender == recipient_obj) & (Message.recipient == sender_obj)
         ).order_by('timestamp')
 
         # Serialize the messages into a list of dictionaries
