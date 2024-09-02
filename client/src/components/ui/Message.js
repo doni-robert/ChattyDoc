@@ -1,21 +1,19 @@
 import React from 'react';
 
-// Function component using arrow function syntax
 const Message = ({ message }) => {
+  const { sender, text, timestamp } = message;
+  const senderName = `${sender.firstname} ${sender.lastname}`;
+
   return (
     <div className="message">
-      {/* Display the sender's avatar (initial of the sender's name) */}
-      <span className="message-avatar">{message.reipient}</span>
+      <span className="message-avatar">{senderName.charAt(0)}</span>
       <div className="message-content">
-        {/* Display the sender's name */}
-        {/* <span className="message-sender">{message.sender}</span> */}
-        {/* Display the message text */}
-        <span className="message-text">{message.text}</span>
-        {/* Display the message timestamp */}
-        {/* <span className="message-timestamp">{message.timestamp}</span> */}
+        <span className="message-sender">{senderName}</span>
+        <span className="message-text">{text}</span>
+        <span className="message-timestamp">{new Date(timestamp).toLocaleString()}</span>
       </div>
     </div>
   );
 }
 
-export default Message; 
+export default Message;

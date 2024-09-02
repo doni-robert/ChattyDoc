@@ -8,6 +8,8 @@ from datetime import datetime
 from models.message import Message
 from models.user import User
 from models.revoked_token import RevokedToken
+from mongoengine import Q
+
 message_bp = Blueprint('message_routes', __name__, url_prefix='/message')
 
 
@@ -61,16 +63,18 @@ def get_messages(current_user, recipient):
         sender_obj = User.get_user_by_kwargs(email=current_user)
 
         print('get mesage')
-        print(current_user, recipient_lastname)
+        print(current_user, recipient_obj.firstname, sender_obj.email)
+        print(recipient_obj.id)
+
 
         # Query the Message model to get messages between current_user and recipient
         messages = Message.objects(
-            (Message.sender == sender_obj) & (Message.recipient == recipient_obj) |
-            (Message.sender == recipient_obj) & (Message.recipient == sender_obj)
+            (Q(sender=sender_obj) & Q(recipient=recipient_obj)) |
+            (Q(sender=recipient_obj) & Q(recipient=sender_obj))
         ).order_by('timestamp')
-
         # Serialize the messages into a list of dictionaries
         messages_list = [message.to_dict() for message in messages]
+        print(messages_list)
 
         # Return the serialized messages as JSON
         return jsonify({"messages": messages_list})
