@@ -57,13 +57,12 @@ def disconnect():
         
 @socketio.on('send_message')
 def send_message(data):
-    print(data)
+    print('sending message')
 
     sender = data.get('sender')
     if sender:
-        names = sender.split()
-        sender_firstname = names[0]
-        sender_lastname = names[1] 
+        sender_firstname = sender.get('firstname')
+        sender_lastname = sender.get('lastname') 
     sender_obj = User.get_user_by_kwargs(firstname=sender_firstname, lastname=sender_lastname)
     recipient = data.get('recipient', {})
     recipient_firstname = recipient.get('firstname')

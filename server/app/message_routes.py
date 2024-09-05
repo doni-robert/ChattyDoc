@@ -62,10 +62,6 @@ def get_messages(current_user, recipient):
         recipient_obj = User.get_user_by_kwargs(firstname=recipient_firstname, lastname=recipient_lastname)
         sender_obj = User.get_user_by_kwargs(email=current_user)
 
-        print('get mesage')
-        print(current_user, recipient_obj.firstname, sender_obj.email)
-        print(recipient_obj.id)
-
 
         # Query the Message model to get messages between current_user and recipient
         messages = Message.objects(
@@ -74,7 +70,6 @@ def get_messages(current_user, recipient):
         ).order_by('timestamp')
         # Serialize the messages into a list of dictionaries
         messages_list = [message.to_dict() for message in messages]
-        print(messages_list)
 
         # Return the serialized messages as JSON
         return jsonify({"messages": messages_list})
