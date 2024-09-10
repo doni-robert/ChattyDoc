@@ -39,21 +39,6 @@ def disconnect():
         del online_users[user_id]
     print('Client disconnected:', request.sid)
 
-
-# @socketio.on('sendMessage')
-# def sendMessage(data):
-#     """ handles a user sending a message """
-#     sender_id = data['sender_id']
-#     receiver_id = data['receiver_id']
-#     message = data['message']
-
-#     send_user_socket = onlineUsers.get(receiver_id)
-#     if send_user_socket:
-#         socketio.emit('receiveMessage', {
-#             'sender_id': sender_id,
-#             'receiver_id': receiver_id,
-#             'message': message
-#         }, room=send_user_socket)
         
 @socketio.on('send_message')
 def send_message(data):
@@ -67,6 +52,7 @@ def send_message(data):
     recipient = data.get('recipient', {})
     recipient_firstname = recipient.get('firstname')
     recipient_lastname = recipient.get('lastname')
+    print(data)
 
     if not recipient_firstname or not recipient_lastname:
         emit('message_error', {'error': 'Recipient and message text are required'})
@@ -78,7 +64,9 @@ def send_message(data):
         emit('message_error', {'error': 'Recipient and message text are required'})
         return
     
-    new_message = Message.create_message(sender=sender_obj, recipient=recipient_obj, text=message_text)
+    timestamp = data.get('timestamp')
+    
+    new_message = Message.create_message(sender=sender_obj, recipient=recipient_obj, text=message_text, timestamp_str=timestamp)
 
     print('It has saved')
     if recipient_obj.email in online_users:
@@ -88,47 +76,6 @@ def send_message(data):
         print(recipient_obj.email, recipient_sid)
         print(new_message.to_dict())
         emit('message_received', new_message.to_dict(), room=recipient_sid)
-
-    # Emit the new message to the recipient and sender
-    # emit('message_received', new_message.to_dict())
-    # emit('message_received', new_message.to_dict())
-
-
-# @socketio.on('joinRoom')
-# def joinRoom(data):
-#     """ handles a user joining a room """
-#     user_id = data['user_id']
-#     room_id = data['room_id']
-#     onlineUsers[user_id] = request.sid
-#     socketio.emit('userJoinedRoom', {
-#         'user_id': user_id,
-#         'room_id': room_id
-#     }, room=request.sid)
-
-
-# @socketio.on('leaveRoom')
-# def leaveRoom(data):
-#     """ handles a user leaving a room """
-#     user_id = data['user_id']
-#     room_id = data['room_id']
-#     socketio.emit('userLeftRoom', {
-#         'user_id': user_id,
-#         'room_id': room_id
-#     }, room=request.sid)
-
-
-# @socketio.on('addUser')
-# def addUser(user_id):
-#     """ handles a user joining a room """
-#     onlineUsers[user_id] = request.sid
-#     emit('userAdded', user_id, broadcast=True)
-
-
-# @socketio.on('removeUser')
-# def removeUser(user_id):
-#     """ handles a user leaving a room """
-#     del onlineUsers[user_id]
-#     emit('userRemoved', user_id, broadcast=True)
 
 
 if __name__ == '__main__':

@@ -6,6 +6,8 @@ from mongoengine import DateTimeField, StringField, ListField, ReferenceField, D
 from .user import User
 
 
+from datetime import datetime
+
 class Message(Document):
     """
     The Class embedded document
@@ -13,7 +15,7 @@ class Message(Document):
     sender = ReferenceField(User, required=True)
     recipient = ReferenceField(User, required=True)
     text = StringField(required=True)
-    timestamp = DateTimeField(default=datetime.now())
+    timestamp = DateTimeField(required=True)
 
     def to_dict(self):
         return {
@@ -29,10 +31,19 @@ class Message(Document):
             "timestamp": self.timestamp.isoformat()
         }
     
-    def create_message(sender, recipient, text):
-        new_message = Message(sender=sender, recipient=recipient, text=text,)
+    @staticmethod
+    def create_message(sender, recipient, text, timestamp_str):
+        # Parse the timestamp from the string (ensure it handles UTC)
+        try:
+            timestamp = datetime.fromisoformat(timestamp_str.replace("Z", "+00:00"))
+        except ValueError:
+            # If timestamp is invalid, fall back to the current time
+            timestamp = datetime.utcnow()
+
+        # Create and save the new message
+        new_message = Message(sender=sender, recipient=recipient, text=text, timestamp=timestamp)
         new_message.save()
 
-        return new_message 
-    
+        return new_message
+
     
