@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
@@ -7,6 +6,7 @@ import Features from "./pages/Features/Features";
 import Navbar from './components/ui/Navbar';
 import Dashboard from './pages/Dashboard/Dashboard';
 import "./assets/styles/App.css";
+import { useState } from 'react';
 
 
 function App(){

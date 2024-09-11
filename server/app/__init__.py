@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 """ Makes the app folder a package"""
 
@@ -24,7 +25,6 @@ app.register_blueprint(auth.bp)
 app.register_blueprint(chat_room_routes.room_bp)
 app.register_blueprint(message_routes.message_bp)
 app.register_blueprint(user_routes.user_bp)
-app.register_blueprint(chat_routes.chats_bp)
 
 # database initialization
 init_mongodb(app)

@@ -4,7 +4,7 @@
 }
 
 .user-info-container {
-    width: 40vw;   
+  width: 40vw;   
 }
 
 .header-container > h2 {
@@ -19,6 +19,7 @@
 }
 
 .update-info-container {
+  
   width: 40vw;
   background-color: FAFBFF;
 }
@@ -26,21 +27,22 @@
 .user-details-container {
   display: flex;
   flex-direction: column;
+  
 }
 
 .user-container {
-    margin: 10px 50px;
-    background-color: #fff;
-    padding: 30px;
-    border: 2px solid #ccc;
-    border-radius: 20px;
-    height: 85%;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+  margin: 10px 50px;
+  background-color: #fff;
+  padding: 30px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  height: 85%;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .user-details {
   display: flex;
-  max-height: 35px;
+  max-height: 35px;    
 }
 
 .info-key {
@@ -53,12 +55,12 @@
 }
 
 .update-container {
-    margin: 50px 100px;
-    background-color: #fff;
-    padding: 10px;
-    border: 2px solid #ccc;
-    border-radius: 20px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);    
+  margin: 50px 100px;
+  background-color: #fff;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);    
 }
 
 .text-input {
@@ -67,37 +69,39 @@
 
 .bio-container {
   display: flex;
+  
 }
 
 .about-container {
-    width: 60px;
+  width: 60px;
 }
 
 .bio-details {
-    flex: 2;
-    max-width: 100%;
-    overflow: visible; 
+  flex: 2;
+  max-width: 100%;
+  overflow: visible; 
 }
 
 .bio-value {
-    max-width: 100%; 
-    margin-left: 30px;
-    font-weight: normal;
-    
-    overflow: hidden; 
-    text-overflow: ellipsis;
+  max-width: 100%; 
+  margin-left: 30px;
+  font-weight: normal;
+  
+  overflow: hidden; 
+  text-overflow: ellipsis;
 }
 
 .bio-input {
-    margin-top: 10px;
-    resize: none;
-    overflow-y: hidden;
-    height: 90px;
+  margin-top: 10px;
+  resize: none;
+  overflow-y: hidden;
+  height: 90px;
 
-    border: 1px solid #ccc;
+  border: 1px solid #ccc;
 }
 
 .bio-input-container {
   display: flex;
   flex-direction: column;
 }
+
