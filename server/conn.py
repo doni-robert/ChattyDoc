@@ -1,8 +1,7 @@
-#!/usr/bin/env python3
-""" socket connection """
+#!/usr/bin/python3
+""" Socket connection """
 
 from app import app
-from flask import request
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 from models.message import Message

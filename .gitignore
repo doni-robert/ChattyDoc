@@ -128,10 +128,3 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-
-# Ignore .env directory inside the server directory
-server/env
-
-# Ignore __pycache__ directories
-*.pyc
-__pycache__/

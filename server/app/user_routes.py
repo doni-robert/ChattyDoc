@@ -4,9 +4,6 @@
 from flask import Blueprint, request, jsonify, make_response
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from functools import wraps
-from datetime import datetime
-from models.chat_message import ChatMessage
-from models.chat_room import ChatRoom
 from models.user import User
 from models.revoked_token import RevokedToken
 from bson import Binary

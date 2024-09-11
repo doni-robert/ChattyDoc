@@ -1,19 +1,15 @@
-import React, { useState } from 'react'
+import React from "react";
 import "../../assets/styles/profile.css";
-import UserInfo from './UserInfo';
-import UpdateUserInfo from './UpdateUserInfo';
+import UserInfo from "../forms/UserInfo";
+import UpdateUserInfo from "../forms/UpdateUserInfo";
 
-const Profile = ({userInfo, setUserInfo, userImage, setUserImage}) => {
-  
+const Profile = ({ userInfo, setUserInfo, userImage, setUserImage }) => {
   return (
-    <div className='profile-container'>
-      <div className='user-info-container'>
-        <UserInfo
-          userInfo={userInfo}
-          userImage={userImage}
-        />
+    <div className="profile-container">
+      <div className="user-info-container">
+        <UserInfo userInfo={userInfo} userImage={userImage} />
       </div>
-      <div className='update-info-container'>
+      <div className="update-info-container">
         <UpdateUserInfo
           userInfo={userInfo}
           setUserInfo={setUserInfo}
@@ -22,7 +18,7 @@ const Profile = ({userInfo, setUserInfo, userImage, setUserImage}) => {
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

@@ -1,6 +1,6 @@
 .profile-container {
-    display: flex;
-    justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .user-info-container {
@@ -8,26 +8,24 @@
 }
 
 .header-container > h2 {
-    color: #000;
+  color: #000;
 }
 
 .image-container {
-    display: flex;
-    justify-content: center;
-    width: 382.39px;
-    height: 229.41px;
+  display: flex;
+  justify-content: center;
+  width: 382.39px;
+  height: 229.41px;
 }
 
 .update-info-container {
-    
-    width: 40vw;
-    background-color: FAFBFF;
+  width: 40vw;
+  background-color: FAFBFF;
 }
 
 .user-details-container {
-    display: flex;
-    flex-direction: column;
-    
+  display: flex;
+  flex-direction: column;
 }
 
 .user-container {
@@ -41,17 +39,17 @@
 }
 
 .user-details {
-    display: flex;
-    max-height: 35px;    
+  display: flex;
+  max-height: 35px;
 }
 
 .info-key {
-    width: 60px;
+  width: 60px;
 }
 
 .info-value {
-    margin-left: 30px;
-    font-weight: normal;
+  margin-left: 30px;
+  font-weight: normal;
 }
 
 .update-container {
@@ -64,24 +62,23 @@
 }
 
 .text-input {
-    margin-left: 80px;
+  margin-left: 80px;
 }
 
 .bio-container {
-    display: flex;
-    
+  display: flex;
 }
-  
+
 .about-container {
     width: 60px;
 }
-  
+
 .bio-details {
     flex: 2;
     max-width: 100%;
     overflow: visible; 
 }
-  
+
 .bio-value {
     max-width: 100%; 
     margin-left: 30px;
@@ -101,13 +98,6 @@
 }
 
 .bio-input-container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
-
-  
-
-
-
-
-
