@@ -12,15 +12,15 @@ const HomeDashboard = ({firstName}) => {
         <WelcomeMessage firstName={firstName}/>
         <div className="home-dashboard-images">
             <figure>
-                <img src={doctor1} alt="" />
+                <img src={doctor1} alt="doctor" />
                 <figcaption>500+ doctors</figcaption>
             </figure>
             <figure>
-                <img src={nurse1} alt="" />
+                <img src={nurse1} alt="nurse" />
                 <figcaption>1000+ nurses</figcaption>
             </figure>
             <figure>
-                <img src={healthy1} alt="" />
+                <img src={healthy1} alt="healthy" />
                 <figcaption>2000+ patients</figcaption>
             </figure>
 
