@@ -40,14 +40,6 @@ def logged_in(func):
     return wrapper
 
 
-# @chats_bp.route('/send_message', methods=['POST'])
-# @logged_in
-# def send_message(current_user):
-#     """ Sends a message to a chat room """
-# from flask import request, jsonify
-# from . import app, db
-# from .models import User, Message
-
 @message_bp.route('/get_messages/<recipient>', methods=['GET'])
 @logged_in
 

@@ -94,23 +94,6 @@ def get_image(current_user):
         return response
     return 'Image not found', 404
 
-# @user_bp.route('/update_user_info', methods=['POST'])
-# @logged_in
-# def update_user_info(current_user):
-#     """Update the information of the current user"""
-#     data = request.json
-#     new_firstname = data.get('firstName')
-#     new_lastname = data.get('lastName')
-
-#     # Update the user information in the database
-#     user = User.objects(email=current_user).first()
-#     if user:
-#         user.firstname = new_firstname
-#         user.lastname = new_lastname
-#         user.save()  # Save the changes
-#         return make_response(jsonify({"message": "User information updated successfully"}), 200)
-#     else:
-#         return make_response(jsonify({"error": "User not found"}), 404)
 
 @user_bp.route('/upload_image', methods=['POST'])
 @logged_in
