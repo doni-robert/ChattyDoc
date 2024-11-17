@@ -45,17 +45,26 @@ def logged_in(func):
 @logged_in
 def get_user_info(current_user):
     """ Gets the information of the current user """
-    firstname = User.objects(email=current_user).first().firstname
-    lastname = User.objects(email=current_user).first().lastname
-    bio = User.objects(email=current_user).first().bio
-    email = current_user
+    user = User.objects(email=current_user).first()
+    firstname = user.firstname
+    lastname = user.lastname
+    bio = user.bio
+    email = user.email
+    role = user.role
+    specialty = user.specialty if user.role == "doctor" else None
 
     user_info = {
-            "firstName": firstname,
-            "lastName": lastname,
-            "email": email,
-            "bio": bio
-            }
+        "firstName": firstname,
+        "lastName": lastname,
+        "email": email,
+        "bio": bio,
+        "role": role,
+    }
+
+    # Include specialty only if the role is "doctor"
+    if role == "doctor":
+        user_info["specialty"] = specialty
+
     return make_response(jsonify(user_info), 201)
 
 

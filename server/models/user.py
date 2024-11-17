@@ -13,7 +13,8 @@ class User(Document):
     password = StringField(max_length=255, required=True)
     image = BinaryField()
     bio = StringField()
-
+    role = StringField(default="user")
+    specialty = StringField()
     meta = {'allow_inheritance': True}
 
     @staticmethod
@@ -31,6 +32,9 @@ class User(Document):
             'firstname': self.firstname,
             'lastname': self.lastname,
         }
+    
+    def is_doctor(self):
+        return self.role == "doctor"
 
     def get_user_by_email(email):
         """ Retrieves a user based on an email"""
@@ -41,11 +45,9 @@ class User(Document):
         
     def get_user_by_kwargs(**kwargs):
         try:
-            # Attempt to retrieve the user using the provided keyword arguments
             user = User.objects.get(**kwargs)
             return user
         except Exception as e:
-            # Handle any other exceptions and print the error message
             print(f"An error occurred: {str(e)}")
             return None
 
