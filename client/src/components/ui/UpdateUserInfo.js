@@ -1,67 +1,69 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserInfoContext } from '../../contexts/UserInfoContext'; // Import the context
 
-const UpdateUserInfo = ({ userInfo, setUserInfo, userImage, setUserImage }) => {
-  // State variables to store the form data
-  const [firstName, setFirstName] = useState(userInfo.firstName);
-  const [lastName, setLastName] = useState(userInfo.lastName);
-  const [email, setEmail] = useState(userInfo.email);
-  const [bio, setBio] = useState(userInfo.bio);
+const UpdateUserInfo = () => {
+  const { userInfo, setUserInfo, userImage, setUserImage } = useContext(UserInfoContext); 
 
+  const [firstName, setFirstName] = useState(userInfo.firstName || '');
+  const [lastName, setLastName] = useState(userInfo.lastName || '');
+  const [bio, setBio] = useState(userInfo.bio || '');
+  
   // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Package the form data
-    const formData = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      bio: bio
-    };
-    // Call onSave prop to save the changes
-    setUserInfo(formData);
-
-    
+    const updatedUserInfo = { firstName, lastName, bio };
+    setUserInfo(updatedUserInfo);  // Trigger context update
+    setIsUpdating(true);  // Trigger update operation
   };
+
+  const [isUpdating, setIsUpdating] = useState(false);
+
 
   useEffect(() => {
     // Function to update user data
     const updateUserInfo = async () => {
+      if (isUpdating) {
       // Logic to update user data...
-      try {
-        // Get JWT token from localStorage
-        const token = localStorage.getItem('jwtToken');
+        try {
+          // Get JWT token from localStorage
+          const token = localStorage.getItem('jwtToken');
 
-        if (!token) {
-          throw new Error('JWT token not found');
-        }
-        
+          if (!token) {
+            throw new Error('JWT token not found');
+          }
+          
 
-        const userInfoJSON = JSON.stringify(userInfo);
-        // console.log(userInfoJSON)
-        
+          const userInfoJSON = JSON.stringify(userInfo);
+          // console.log(userInfoJSON)
+          
 
-        // Fetch user info with JWT token
-        const response = await fetch('http://localhost:5000/user/update_user_info', {
-          method: 'POST',
-          body: userInfoJSON,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        
-        if (!response.ok) {
-          throw new Error('Failed to update user info');
-        }
-        } catch (error) {
-          // Handle errors
-          console.error('Error updating user info:', error);
+          // Fetch user info with JWT token
+          const response = await fetch('http://localhost:5000/user/update_user_info', {
+            method: 'POST',
+            body: userInfoJSON,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          
+          if (!response.ok) {
+            throw new Error('Failed to update user info');
+          }
+
+          alert('Profile updated successfully!');
+          } catch (error) {
+            // Handle errors
+            console.error('Error updating user info:', error);
+          } finally {
+            setIsUpdating(false);
+          }
         }
       };
 
     // Call updateUserData when userData changes
     updateUserInfo();
-  }, [userInfo]);
+  }, [isUpdating, userInfo]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0]; // Get the selected file from the input element
@@ -88,27 +90,28 @@ const UpdateUserInfo = ({ userInfo, setUserInfo, userImage, setUserImage }) => {
 
 
   const handleImageUpload = async () => {
-    
+    if (!userImage) {
+      alert('No image selected!');
+      return;
+    }
+  
     const formData = new FormData();
     formData.append('image', userImage);
-
-
+  
     const token = localStorage.getItem('jwtToken');
     if (!token) {
       throw new Error('JWT token not found');
     }
-
+  
     try {
       const response = await fetch('http://localhost:5000/user/upload_image', {
         method: 'POST',
-        
         headers: {
           Authorization: `Bearer ${token}`,
-          enctype: "multipart/form-data"
         },
         body: formData,
-        
       });
+  
       if (response.ok) {
         alert('Profile picture updated successfully');
       } else {
@@ -118,6 +121,7 @@ const UpdateUserInfo = ({ userInfo, setUserInfo, userImage, setUserImage }) => {
       console.error('Error updating profile picture:', error);
     }
   };
+  
 
  
 

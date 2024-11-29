@@ -55,7 +55,7 @@ def get_user_info(current_user):
 
     user_info = {
         "firstName": firstname,
-        "lastName": lastname,
+        "lastName": lastname,   
         "email": email,
         "bio": bio,
         "role": role,
