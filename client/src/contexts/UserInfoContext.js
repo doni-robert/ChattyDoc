@@ -3,6 +3,8 @@ import React, { createContext, useState, useEffect } from 'react';
 // Create a Context for User Info
 export const UserInfoContext = createContext();
 
+const DEFAULT_IMAGE_URL = '/assets/images/user_icon_001.jpg';
+
 // Create a Provider component
 export const UserInfoProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState({
@@ -11,7 +13,7 @@ export const UserInfoProvider = ({ children }) => {
     email: '',
     bio: ''
   });
-  const [userImage, setUserImage] = useState(null);
+  const [userImage, setUserImage] = useState(DEFAULT_IMAGE_URL);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
