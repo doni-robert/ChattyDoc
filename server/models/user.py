@@ -31,6 +31,7 @@ class User(Document):
         return {
             'firstname': self.firstname,
             'lastname': self.lastname,
+            'role': self.role,
         }
     
     def is_doctor(self):

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { UserInfoContext } from '../../contexts/UserInfoContext'; // Import the context
+import { UserInfoContext } from '../../contexts/UserInfoContext';
 import SideBar from '../../components/ui/Sidebar';
 import Chat from '../../components/ui/Chat';
 import Notifications from '../../components/ui/Notifications';
@@ -9,22 +9,13 @@ import HomeDashboard from './HomeDashboard';
 import Profile from '../../components/ui/Profile';
 
 const Dashboard = () => {
-  // State for selecting component to display beside the SideBar
   const [selectedComponent, setSelectedComponent] = useState('homeDashboard');
-
-  // Use the context to get userInfo and userImage
-  const { userInfo, userImage } = useContext(UserInfoContext); // Directly access userInfo and userImage from context
-
-  const { firstName } = userInfo; // Destructure relevant fields from userInfo
+  const { userInfo, userImage } = useContext(UserInfoContext);
+  const { firstName } = userInfo;
 
   return (
     <div className='dashboard-container'>
-      <SideBar
-        setSelectedComponent={setSelectedComponent}
-        userImage={userImage} // Pass userImage directly from context
-      />
-
-      {/* Conditional rendering to render the selectedComponent */}
+      <SideBar setSelectedComponent={setSelectedComponent} userImage={userImage} />
       {selectedComponent === 'profile' && <Profile />}
       {selectedComponent === 'chat' && <Chat />}
       {selectedComponent === 'contacts' && <Contacts />}

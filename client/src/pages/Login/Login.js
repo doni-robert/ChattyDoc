@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Button, TextField, InputAdornment, IconButton } from '@mui/material';
@@ -8,30 +8,25 @@ import axios from 'axios';
 import '../../assets/styles/login.css';
 import { jwtDecode } from 'jwt-decode';
 import UsersContext from '../../contexts/UsersContext';
+import { TokenContext } from '../../contexts/TokenContext';
 
-
-
-const LoginPage = ({setIsLoggedIn, isLoggedIn}) => {
+const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+
     const navigate = useNavigate();
-    const { loggedInUsers, addUser, removeUser } = UsersContext
+    const { handleLogin } = useContext(UsersContext);
+    const { token } = useContext(TokenContext);
 
     useEffect(() => {
-        const token = sessionStorage.getItem('authToken');
         if (token) {
-            const decodedToken = jwtDecode(token);
-            console.log(isLoggedIn)
-            if (!isLoggedIn) {
-            // Token exists, user is already logged in hence redirect to dashboard
-                setIsLoggedIn(true);
-                navigate('/dashboard');
-            }
+            handleLogin(jwtDecode(token));
+            navigate('/dashboard');
         }
-    }, []);
+    }, [token, navigate, handleLogin]);
 
     const handleChange = (event) => {
         if (event.target.name === 'email') {
@@ -53,7 +48,7 @@ const LoginPage = ({setIsLoggedIn, isLoggedIn}) => {
     };
 
     const handleFormSubmit = async (event) => {
-        event.preventDefault(); // Prevent form submission
+        event.preventDefault();
 
         if (!validateEmail()) {
             return;
@@ -61,26 +56,15 @@ const LoginPage = ({setIsLoggedIn, isLoggedIn}) => {
 
         try {
             const response = await axios.post('http://localhost:5000/auth/login/', { email, password });
-            console.log('Login Response:', response);
-
             if (response.status === 200) {
-                // Save token to local storage
-                const token = response.data.access_token
+                const token = response.data.access_token;
                 sessionStorage.setItem('authToken', token);
-                setIsLoggedIn(true)
-                
-                // Login successful, redirect to the dashboard
+                handleLogin(jwtDecode(token));
                 navigate('/dashboard');
-            } else {
-                console.log('Login failed: Invalid email or password');
-                setPasswordError('Invalid email or password');
-
-                // Add your logic to display an error message or handle the error accordingly
             }
         } catch (error) {
-            console.log('Error occurred while logging in:', error.message);
+            console.error('Error occurred while logging in:', error.message);
             setPasswordError('Invalid email or password');
-            // Add your logic to display an error message or handle the error accordingly
         }
     };
 
@@ -92,7 +76,6 @@ const LoginPage = ({setIsLoggedIn, isLoggedIn}) => {
         <div className="login-container">
             <div className="login-page">
                 <h2>Login</h2>
-
                 <form className="login-form" onSubmit={handleFormSubmit}>
                     <TextField
                         name="email"
@@ -103,7 +86,7 @@ const LoginPage = ({setIsLoggedIn, isLoggedIn}) => {
                         value={email}
                         onChange={handleChange}
                         style={{ marginBottom: '20px', width: '100%' }}
-                        error={Boolean(email) && !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)}
+                        error={Boolean(emailError)}
                         helperText={emailError}
                     />
 

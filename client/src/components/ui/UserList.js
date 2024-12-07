@@ -21,6 +21,7 @@ const UserList = ({ onSelectUser }) => {
       })
       .then(data => {
         if (Array.isArray(data.users)) {
+          console.log(data.users)
           setUsers(data.users); // Set the users state with the fetched data
         } else {
           throw new Error('Invalid data format: users is not an array');

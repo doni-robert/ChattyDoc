@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UserInfoContext } from '../../contexts/UserInfoContext'; // Import the context
+import { TokenContext } from '../../contexts/TokenContext';
 
 const UpdateUserInfo = () => {
   const { userInfo, setUserInfo, userImage, setUserImage } = useContext(UserInfoContext); 
@@ -7,6 +8,8 @@ const UpdateUserInfo = () => {
   const [firstName, setFirstName] = useState(userInfo.firstName || '');
   const [lastName, setLastName] = useState(userInfo.lastName || '');
   const [bio, setBio] = useState(userInfo.bio || '');
+
+  const { token } = useContext(TokenContext);
   
   // Function to handle form submission
   const handleSubmit = (e) => {
@@ -24,9 +27,7 @@ const UpdateUserInfo = () => {
     const updateUserInfo = async () => {
       if (isUpdating) {
       // Logic to update user data...
-        try {
-          // Get JWT token from localStorage
-          const token = localStorage.getItem('jwtToken');
+        try {     
 
           if (!token) {
             throw new Error('JWT token not found');
@@ -98,7 +99,6 @@ const UpdateUserInfo = () => {
     const formData = new FormData();
     formData.append('image', userImage);
   
-    const token = localStorage.getItem('jwtToken');
     if (!token) {
       throw new Error('JWT token not found');
     }
