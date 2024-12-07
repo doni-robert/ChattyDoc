@@ -28,11 +28,18 @@ class User(Document):
         return True
     
     def to_dict(self):
-        return {
+        user_dict = {
             'firstname': self.firstname,
             'lastname': self.lastname,
             'role': self.role,
         }
+        
+        # Include specialty if the role is 'doctor'
+        if self.role == 'doctor':
+            user_dict['specialty'] = self.specialty
+        
+        return user_dict
+
     
     def is_doctor(self):
         return self.role == "doctor"

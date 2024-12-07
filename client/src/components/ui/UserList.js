@@ -21,7 +21,7 @@ const UserList = ({ onSelectUser }) => {
       })
       .then(data => {
         if (Array.isArray(data.users)) {
-          console.log(data.users)
+          console.log(data.users);
           setUsers(data.users); // Set the users state with the fetched data
         } else {
           throw new Error('Invalid data format: users is not an array');
@@ -44,6 +44,7 @@ const UserList = ({ onSelectUser }) => {
             key={`${user.firstname}-${user.lastname}`}
             onClick={() => onSelectUser(user)} // Pass the selected user to the parent
           >
+            {user.role === 'doctor' ? 'Dr. ' : ''}
             {user.firstname} {user.lastname}
           </li>
         ))}
