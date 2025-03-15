@@ -6,6 +6,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import axios from "axios";
 import "../../assets/styles/register.css";
+import API_URL from "../../config";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -56,7 +57,7 @@ const Register = () => {
     try {
       // Make a POST request to the register endpoint
       const response = await axios.post(
-        "http://localhost:5000/auth/register/",
+        `${API_URL}/auth/register/`,
         {
           firstname: firstName,
           lastname: lastName,

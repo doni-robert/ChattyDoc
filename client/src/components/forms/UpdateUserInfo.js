@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_URL from '../../config';
 
 const UpdateUserInfo = ({ userInfo, setUserInfo, userImage, setUserImage }) => {
   // State variables to store the form data
@@ -42,7 +43,7 @@ const UpdateUserInfo = ({ userInfo, setUserInfo, userImage, setUserImage }) => {
         
 
         // Fetch user info with JWT token
-        const response = await fetch('http://localhost:5000/user/update_user_info', {
+        const response = await fetch(`${API_URL}/user/update_user_info`, {
           method: 'POST',
           body: userInfoJSON,
           headers: {
@@ -101,7 +102,7 @@ const UpdateUserInfo = ({ userInfo, setUserInfo, userImage, setUserImage }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/user/upload_image', {
+      const response = await fetch(`${API_URL}/user/upload_image`, {
         method: 'POST',
         
         headers: {

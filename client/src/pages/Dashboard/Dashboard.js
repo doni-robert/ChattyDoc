@@ -5,6 +5,7 @@ import Chats from "./Chats";
 import Profile from "../../components/ui/Profile";
 import "../../assets/styles/dashboard.css";
 import onlineDoctor from "../../assets/images/user_icon_001.jpg";
+import API_URL from "../../config";
 
 const Dashboard = () => {
   //State for selecting component to display beside the SideBar
@@ -35,7 +36,7 @@ const Dashboard = () => {
 
         // Fetch user info with JWT token
         const response = await fetch(
-          "http://localhost:5000/user/get_user_info",
+          `${API_URL}/user/get_user_info`,
           {
             method: "GET",
             headers: {
@@ -72,7 +73,7 @@ const Dashboard = () => {
         console.log(token);
 
         // Fetch image with JWT token
-        const response = await fetch("http://localhost:5000/user/get_image", {
+        const response = await fetch(`${API_URL}/user/get_image`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,

@@ -4,8 +4,9 @@ import Conversations from "../../components/ui/Conversations";
 import Flash from "../../components/ui/Flash";
 import io from "socket.io-client";
 import "../../assets/styles/chats.css"
+import API_URL from "../../config";
 
-const socket = io("http://localhost:5000");
+const socket = io(`${API_URL}`);
 
 class Chats extends Component {
   constructor(props) {

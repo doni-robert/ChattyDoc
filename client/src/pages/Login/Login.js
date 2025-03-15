@@ -6,6 +6,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import axios from "axios";
 import "../../assets/styles/login.css";
+import API_URL from "../../config";
 
 const LoginPage = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState("");
@@ -51,7 +52,7 @@ const LoginPage = ({ setIsLoggedIn }) => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/auth/login/", {
+      const response = await axios.post(`${API_URL}/auth/login/`, {
         email,
         password,
       });
